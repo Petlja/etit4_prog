@@ -40,5 +40,5 @@ useful:
 :maxdepth: 1
 :caption: Садржај
 
-Uvod/index
+Generics/index
 ```
