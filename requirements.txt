@@ -1,0 +1,8 @@
+sphinx
+myst-parser 
+sphinx-design
+furo
+sphinx-copybutton
+sphinx-autobuild
+plct-cli
+plct-sphinx-components
