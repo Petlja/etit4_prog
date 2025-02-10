@@ -31,4 +31,5 @@ Dictionary, Stack, Queue)
 :maxdepth: 1
 
 01_genericke_metode
+02_genericke_metode_params
 ```
