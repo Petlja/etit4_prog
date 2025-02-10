@@ -1,4 +1,4 @@
-# Генеричке класе
+# Генеричке класе и колекције
 
 Оквирни број часова: 12
 
@@ -32,4 +32,5 @@ Dictionary, Stack, Queue)
 
 01_genericke_metode
 02_genericke_metode_params
+03_genericke_metode_constraints
 ```
