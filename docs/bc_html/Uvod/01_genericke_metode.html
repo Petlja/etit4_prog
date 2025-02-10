@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="sr-Cyrl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Генеричке методе &#8212; Програмирање IV за информатичке профиле у електротехничким школама</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=38a41dd3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/notes.css?v=5369589b" />
+    <link rel="stylesheet" type="text/css" href="../_static/multiple-choice.css?v=df6f2113" />
+    <link rel="stylesheet" type="text/css" href="../_static/fill-in-the-blank.css?v=18d67449" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=de1d9f27"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/notes.js?v=f5c030f5"></script>
+    <script src="../_static/multiple-choice.js?v=5417ff0d"></script>
+    <script src="../_static/fill-in-the-blank.js?v=9c804142"></script>
+    <script src="../_static/../_platform/petljaRTBundle.js?v=1b63c3ef"></script>
+    <script src="../_static/../_platform/content.js?v=68d29ad7"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="prev" title="Генеричке класе" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Генеричке методе<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<p>Генеричке методе у програмском језику C# омогућавају писање метода које могу да
+раде са различитим типовима података. Користе типске параметре, обично означене
+словом <code class="docutils literal notranslate"><span class="pre">T</span></code>, чиме се омогућује да метода буде независна од конкретног типа
+података. Дефинишу се додавањем аргумента типа <code class="docutils literal notranslate"><span class="pre">&lt;T&gt;</span></code> између имена методе и
+њених параметара. Синтакса генеричке методе која има један параметар изгледа
+овако:</p>
+<div class="highlight-cs notranslate"><div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="n">GenerickaMetoda</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">parametar</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Telo metode</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Једноставан пример била би метода за испис вредности било ког типа:</p>
+<div class="highlight-cs notranslate"><div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="n">Ispisi</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">parametar</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">parametar</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Ова метода прихвата типски параметар <code class="docutils literal notranslate"><span class="pre">T</span></code> који се одређује у тренутку њеног
+позива, тј. параметар <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">vrednost</span></code> означава да метода прихвата променљиву било
+ког типа <code class="docutils literal notranslate"><span class="pre">T</span></code> (нпр. <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">double</span></code> или <code class="docutils literal notranslate"><span class="pre">string</span></code>). Захваљујући типском параметру
+<code class="docutils literal notranslate"><span class="pre">T</span></code>, методу <code class="docutils literal notranslate"><span class="pre">Ispisi</span></code> можеш да позовеш са аргументом било ког типа:</p>
+<div class="highlight-cs notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ceoBroj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">realanBroj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2.2</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="n">niska</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tri&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Ispisi</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ceoBroj</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Ispisi</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">realanBroj</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Ispisi</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">niska</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Како је аргумет типа <code class="docutils literal notranslate"><span class="pre">&lt;T&gt;</span></code> написан у дефиницији методе, можеш га изоставити
+приликом позива методе - компајлер ће се побринути да аргумент типа <code class="docutils literal notranslate"><span class="pre">&lt;T&gt;</span></code> буде
+наслеђен:</p>
+<div class="highlight-cs notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ceoBroj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">realanBroj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2.2</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="n">niska</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tri&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Ispisi</span><span class="p">(</span><span class="n">ceoBroj</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Ispisi</span><span class="p">(</span><span class="n">realanBroj</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Ispisi</span><span class="p">(</span><span class="n">niska</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Аргумент не мора бити променљива - може бити наведен и као вредност. Тако,
+претходни програм може бити написан и овако:</p>
+<div class="highlight-cs notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Ispisi</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Ispisi</span><span class="p">(</span><span class="m">2.2</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Ispisi</span><span class="p">(</span><span class="s">&quot;tri&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Након извршења овог програма у конзоли ће се исписати:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1
+2.2
+tri
+</pre></div>
+</div>
+<p>Нека је задатак да напишеш методу <code class="docutils literal notranslate"><span class="pre">IspisiTip</span></code> која ће се користити за проверу и
+испис типа података било које вредности или променљиве која се приликом позива
+наведе као њен аргумент. Решење задатка може да изгледа овако:</p>
+<div class="highlight-cs notranslate"><div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="n">IspisiTip</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">parametar</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;{0} je tipa {1}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">parametar</span><span class="p">,</span><span class="w"> </span><span class="k">typeof</span><span class="p">(</span><span class="n">T</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Оператор <code class="docutils literal notranslate"><span class="pre">typeof</span></code> користи се за добијање типа податка у току извршавања
+програма, а у овом случају, <code class="docutils literal notranslate"><span class="pre">typeof(T)</span></code> враћа тип податка који је прослеђен као
+аргумент. Ако се метода <code class="docutils literal notranslate"><span class="pre">IspisiTip</span></code> позове са аргументом било ког типа, на
+пример…</p>
+<div class="highlight-cs notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">IspisiTip</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+<span class="w">    </span><span class="n">IspisiTip</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">IspisiTip</span><span class="p">(</span><span class="m">2.2</span><span class="p">);</span>
+<span class="w">    </span><span class="n">IspisiTip</span><span class="p">(</span><span class="s">&quot;tri&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>…у конзоли ће се исписати:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>True je tipa System.Boolean
+1 je tipa System.Int32
+2.2 je tipa System.Double
+tri je tipa System.String
+</pre></div>
+</div>
+<p>Мало комплексији пример била би метода за испис елемената низа било ког типа.
+Тако, у методи <code class="docutils literal notranslate"><span class="pre">IspisiNiz</span></code>…</p>
+<div class="highlight-cs notranslate"><div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="n">IspisiNiz</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">T</span><span class="p">[]</span><span class="w"> </span><span class="n">niz</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">niz</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">element</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>…аргумент типа <code class="docutils literal notranslate"><span class="pre">&lt;T&gt;</span></code> означава да метода прихвата типски параметар <code class="docutils literal notranslate"><span class="pre">T</span></code> који се
+одређује у тренутку позива, тј. <code class="docutils literal notranslate"><span class="pre">T[]</span> <span class="pre">niz</span></code> означава да метода прихвата низ било
+ког типа <code class="docutils literal notranslate"><span class="pre">T[]</span></code> (нпр. <code class="docutils literal notranslate"><span class="pre">int[]</span></code>, <code class="docutils literal notranslate"><span class="pre">double[]</span></code> или <code class="docutils literal notranslate"><span class="pre">string[]</span></code>). Метода <code class="docutils literal notranslate"><span class="pre">IspisiNiz</span></code>
+сада може да прихвати низ било ког типа:</p>
+<div class="highlight-cs notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">celiBrojevi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">realniBrojevi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="m">1.2</span><span class="p">,</span><span class="w"> </span><span class="m">3.4</span><span class="p">,</span><span class="w"> </span><span class="m">5.6</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">niske</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;jedan&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;dva&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tri&quot;</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="n">IspisiNiz</span><span class="p">(</span><span class="n">celiBrojevi</span><span class="p">);</span>
+<span class="w">    </span><span class="n">IspisiNiz</span><span class="p">(</span><span class="n">realniBrojevi</span><span class="p">);</span>
+<span class="w">    </span><span class="n">IspisiNiz</span><span class="p">(</span><span class="n">niske</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Након извршења овог програма у конзоли ће се исписати:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1
+2
+3
+1.2
+3.4
+5.6
+jedan
+dva
+tri
+</pre></div>
+</div>
+<p>Из ових једноставних примера можеш да закључиш да коришћење генеричких метода
+доприноси поновној употреби кода јер једна метода може радити са више типова.
+Генеричке методе са једним типским параметром су интуитивне и омогућују рад са
+било којим типом без компликоване логике и конверзија или кастовања типова што
+доприноси једноставности и лакшем разумевање кода методе.</p>
+<p>Такође, избегавањем непотребних конверзија и кастовања типова смањује се
+могућност појављивања грешака приликом извршавања, што чини кôд безбеднијим.</p>
+</section>
+
+
+          </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
