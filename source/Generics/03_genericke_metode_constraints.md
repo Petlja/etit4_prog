@@ -396,38 +396,36 @@ public class MojaKlasa : BaznaKlasa, IObavestenja
 
     public void Obavesti(string poruka)
     {
-        Console.WriteLine(poruka);
+        Console.WriteLine("Naziv: " + poruka);
     }
 }
 ```
 
-Исправно дефинисана генеричка метода са вишеструким ограничењима може да
-изгледа овако:
+Исправно дефинисана генеричка метода са вишеструким ограничењима и њен позив
+могу да изгледају овако:
 
 ```cs
-public static void MojaMetoda<T>(T stavka) where T : BaznaKlasa, IObavestenja, new()
+class Program
 {
-    stavka.Obavesti("Poruka: " + stavka.Ime);
-    T novaInstanca = new T();
-    novaInstanca.Ime = "Novo Ime...";
-    novaInstanca.Obavesti("Nova instanca je kreirana: " + novaInstanca.Ime);
-}
-```
+    public static void MojaMetoda<T>(T stavka) where T : BaznaKlasa, IObavestenja, new()
+    {
+        stavka.Obavesti(stavka.Ime);
+        T novaInstanca = new T();
+        novaInstanca.Ime = "Novo ime";
+        novaInstanca.Obavesti(novaInstanca.Ime);
+    }
 
-Ове метода може да прихвати само типове који задовољавају сва три ограничења,
-па њеб позив може да изгледа овако.
-
-```cs
-static void Main()
-{
-    MojaKlasa objekat = new MojaKlasa();
-    MojaMetoda(objekat);
+    static void Main()
+    {
+        MojaKlasa objekat = new MojaKlasa();
+        MojaMetoda(objekat);
+    }
 }
 ```
 
 Извршавањем овог програма у конзоли ће се исписати:
 
 ```text
-Poruka: Podrazumevano ime
-Nova instanca je kreirana: Novo ime...
+Naziv: Podrazumevano ime
+Naziv: Novo ime
 ```

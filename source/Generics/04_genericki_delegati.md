@@ -1,0 +1,84 @@
+# Генерички делегати
+
+Генерички делегати омогућавају дефинисање делегата који могу радити са
+различитим типовима података, без потребе за креирањем више верзија истог
+делегата за сваки конкретан тип.
+
+## Дефиниција и употреба генеричких делегата
+
+Генерички делегати се дефинишу на сличан начин као и обични делегати, али са
+додатком генеричких параметара.
+
+```cs
+delegate T MojGenerickiDelegat<T>(T parametar);
+```
+
+Генерички делегат се обично користи тако што се креирају методе које одговарају
+потпису делегата, па се онда додељују инстанци делегата.
+
+```cs
+delegate T Dupliraj<T>(T parametar);
+
+static int Kvadriraj(int x)
+{
+    return x * x;
+}
+
+static string Ponovi(string s)
+{
+    return s + s;
+}
+
+static void Main()
+{
+    Dupliraj<int> intDelegat = Kvadriraj;
+    Dupliraj<string> stringDelegat = Ponovi;
+    Console.WriteLine(intDelegat(5));
+    Console.WriteLine(stringDelegat("Pozdrav!"));
+}
+```
+
+Извршавањем овог програма у конзоли ће се исписати:
+
+```text
+25
+Pozdrav!Pozdrav!
+```
+
+## Предефинисани генерички делегати
+
+У програмском језику C# у именском простору `System` постоје унапред дефинисани
+генерички делегати, међу којима су:
+
+* `Action<T>` узима један улазни параметар типа `T` и не враћа резултат,
+* `Predicate<T>` узима један улазни параметар типа `T` и враћа `bool` вредност,
+* `Func<T, TResult>` узима један улазни параметар типа `T` и враћа резултат
+`TResult` типа итд.
+
+На пример, нека је задатак да креираш генерички делегат `intUString` који се
+може користити за конверзију целобројне вредности у стринг. Решење задатка може
+да изгледа овако:
+
+```cs
+static Func<int, string> intUString = KonvertujIntUString;
+
+static string KonvertujIntUString(int number)
+{
+    return number.ToString();
+}
+
+static void Main()
+{
+    Console.WriteLine(intUString(123));
+}
+```
+
+У конзоли ће се исписати:
+
+```text
+123
+```
+
+Списак и опис свих предефинисан генеричких делегата у програмском језику C#
+можеш пронаћи у званичној
+[документацији](https://learn.microsoft.com/en-us/dotnet/api/system?view=netframework-4.8.1).
