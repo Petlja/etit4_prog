@@ -30,8 +30,10 @@ Dictionary, Stack, Queue)
 ```{toctree}
 :maxdepth: 1
 
+00_generici
 01_genericke_metode
 02_genericke_metode_params
 03_genericke_metode_constraints
 04_genericki_delegati
+05_genericke_klase
 ```
