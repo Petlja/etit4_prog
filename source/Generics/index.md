@@ -36,4 +36,5 @@ Dictionary, Stack, Queue)
 03_genericke_metode_constraints
 04_genericki_delegati
 05_genericke_klase
+06_genericki_interfejsi
 ```
