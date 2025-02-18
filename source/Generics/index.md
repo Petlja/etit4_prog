@@ -37,4 +37,5 @@ Dictionary, Stack, Queue)
 04_genericki_delegati
 05_genericke_klase
 06_genericki_interfejsi
+07_kolekcije
 ```
