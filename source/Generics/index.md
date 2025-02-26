@@ -38,4 +38,5 @@ Dictionary, Stack, Queue)
 05_genericke_klase
 06_genericki_interfejsi
 07_kolekcije
+stek
 ```
