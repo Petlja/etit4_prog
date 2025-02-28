@@ -39,4 +39,5 @@ Dictionary, Stack, Queue)
 06_genericki_interfejsi
 07_kolekcije
 stek
+red
 ```
