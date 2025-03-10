@@ -42,4 +42,5 @@ lista
 stek
 red
 hesset
+recnik
 ```
