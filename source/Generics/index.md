@@ -41,4 +41,5 @@ Dictionary, Stack, Queue)
 lista
 stek
 red
+hesset
 ```

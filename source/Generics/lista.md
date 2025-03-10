@@ -25,3 +25,50 @@
 `element`. Елементи листе се могу сортирати методом `Sort()`, а методом
 `Reverse()` обрће се редослед елемената у листи. На крају, методом `ToArray()`
 листа се конвертује у низ.
+
+Једноставан пример рада са листом ученика демонстриран је у следећем примеру:
+
+```cs
+static void Main()
+{
+    List<string> ucenici = new List<string>();
+
+    ucenici.Add("Paja");
+    ucenici.Add("Raja");
+    ucenici.Add("Vlaja");
+    ucenici.Add("Gaja");
+    ucenici.Add("Maja");
+
+    Console.WriteLine("Prvi ucenik u listi je:");
+    Console.WriteLine(ucenici[0]);
+
+    Console.WriteLine("\nDa li se Raja nalazi u listi?");
+    if (ucenici.Contains("Raja"))
+    {
+        Console.WriteLine("Raja se nalazi u listi!");
+    }
+
+    Console.WriteLine("\nIzbacuje se Paja iz liste:");
+    ucenici.Remove("Paja");
+    foreach (string ucenik in ucenici)
+    {
+        Console.WriteLine(ucenik);
+    }
+}
+```
+
+Извршавањем овог програма у конзоли ће се исписати:
+
+```text
+Prvi ucenik u listi je:
+Paja
+
+Da li se Raja nalazi u listi?
+Raja se nalazi u listi!
+
+Izbacuje se Paja iz liste:
+Raja
+Vlaja
+Gaja
+Maja
+```
