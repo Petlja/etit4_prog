@@ -68,15 +68,15 @@
 неке уобичајене ситуације на основу којих можеш да одабереш коју генеричку
 колекцију треба да користиш за тип задатка којег решаваш.
 
-| Ситуација               | Генеричка колекција          | Негенеричка колекција | Конкурентна или непроменљива колекција                                                                     |
-|-------------------------|------------------------------|-----------------------|------------------------------------------------------------------------------------------------------------|
-| пар кључ-вредност       | `Dictionary<TKey,TValue>`    | `Hashtable`           | `ConcurrentDictionary<TKey,TValue>`, `ReadOnlyDictionary<TKey,TValue>`, `ImmutableDictionary<TKey,TValue>` |
-| приступ по индексу      | `List<T>`                    | `Array`, `ArrayList`  | `ImmutableList<T>`, `ImmutableArray`                                                                       |
-| FIFO                    | `Queue<T>`                   | `Queue`               | `ConcurrentQueue<T>`, `ImmutableQueue<T>`                                                                  |
-| LIFO                    | `Stack<T>`                   | `Stack`               | `ConcurrentStack<T>`, `ImmutableStack<T>`                                                                  |
-| секвенцијални приступ   | `LinkedList<T>`              | н/п                   | н/п                                                                                                        |
-| сортирана колекција     | `SortedList<TKey,TValue>`    | `SortedList`          | `ImmutableSortedDictionary<TKey,TValue>`, `ImmutableSortedSet<T>`                                          |
-| за математичке функције | `HashSet<T>`, `SortedSet<T>` | н/п                   | `ImmutableHashSet<T>`, `ImmutableSortedSet<T>`                                                             |
+| Ситуација               | Генеричка колекција                                         | Негенеричка колекција | Конкурентна или непроменљива колекција                                                                     |
+|-------------------------|-------------------------------------------------------------|-----------------------|------------------------------------------------------------------------------------------------------------|
+| пар кључ-вредност       | `Dictionary<TKey,TValue>`                                   | `Hashtable`           | `ConcurrentDictionary<TKey,TValue>`, `ReadOnlyDictionary<TKey,TValue>`, `ImmutableDictionary<TKey,TValue>` |
+| приступ по индексу      | `List<T>`                                                   | `Array`, `ArrayList`  | `ImmutableList<T>`, `ImmutableArray`                                                                       |
+| FIFO                    | `Queue<T>`                                                  | `Queue`               | `ConcurrentQueue<T>`, `ImmutableQueue<T>`                                                                  |
+| LIFO                    | `Stack<T>`                                                  | `Stack`               | `ConcurrentStack<T>`, `ImmutableStack<T>`                                                                  |
+| секвенцијални приступ   | `LinkedList<T>`                                             | н/п                   | н/п                                                                                                        |
+| сортирана колекција     | `SortedList<TKey,TValue>`, `SortedDictionary<TKey, TValue>` | `SortedList`          | `ImmutableSortedDictionary<TKey,TValue>`, `ImmutableSortedSet<T>`                                          |
+| за математичке функције | `HashSet<T>`, `SortedSet<T>`                                | н/п                   | `ImmutableHashSet<T>`, `ImmutableSortedSet<T>`                                                             |
 
 ## Итерације кроз елементе колекција
 
