@@ -41,4 +41,5 @@ useful:
 :caption: Садржај
 
 Generics/index
+Graphics/index
 ```
