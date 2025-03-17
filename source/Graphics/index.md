@@ -22,5 +22,6 @@
 :maxdepth: 1
 
 00_uvod
-
+01_graphics
+02_image_bitmap
 ```
