@@ -22,27 +22,39 @@
 * `RotateFlip(TipRotacijeObrtanja)`, ротира и/или обрће слику,
 * `Clone()`, креира копију слике и др.
 
-На пример, апликација којом се учитава и приказује слику из фајла `slika.jpg`
-на форми:
+Сва својства и методе класе `Image` из именског простора
+[`System.Drawing`](https://learn.microsoft.com/en-us/dotnet/api/system.drawing?view=netframework-4.8.1)
+можеш пронаћи у
+[званичној документацији](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.image?view=netframework-4.8.1).
+
+Пружа основну функционалност за учитавање, чување и манипулацију сликама у
+различитим форматима, као што су BMP, JPEG, PNG, GIF и TIFF. Учитавање слика
+могуће је из датотека, стримова или других ресурса. Подржава добијање основних
+информација о слици, као што су висина, ширина, формат, резолуција и др.
+Омогућава и промену формата слике и чување у различитим форматима, а подржава
+основне трансформације слика, попут ротирања и промена величине.
+
+Пример коришћења класе `Image` може да буде Windows Forms апликација којом се
+учитава и приказује слику из фајла `slika.jpg` на форми:
 
 ```cs
 protected override void OnPaint(PaintEventArgs e)
 {
     this.Text = "Prikaz slike";
-    this.Size = new Size(640, 640);
+    this.Size = new Size(360, 380);
     Image img = Image.FromFile("slika.jpg");
     Graphics g = e.Graphics;
-    g.DrawImage(img, 0, 0, img.Width, img.Height);
+    g.DrawImage(img, 10, 10, img.Width, img.Height);
 }
 ```
 
-![Учитавање и приказ слике](./images/PrikazSlike.jpg)
+![Учитавање и приказ слике](./images/PrikazSlike.png)
 
 ## Класа Bitmap
 
 Класа `Bitmap` је конкретна имплементација класе `Image` и омогућава рад са
 растерским сликама. Ова класа омогућава приступ и манипулацију појединачним
-пикселима слике. Она додаје могућност измене слика:
+пикселима слике и додаје могућност измене слика:
 
 * `SetPixel(int x, int y, Color boja)`, на датој координати поставља пиксел
 одређене боје,
@@ -50,3 +62,67 @@ protected override void OnPaint(PaintEventArgs e)
 * `Clone(Rectangle pravoug, PixelFormat format)`, креира копију дела слике,
 * `LockBits()` и `UnlockBits()`, омогућава бржи приступ пикселима коришћењем
 меморијског закључавања (закључавања у системској меморији) и др.
+
+Сва својства и методе класе `Bitmap` из именског простора
+[`System.Drawing`](https://learn.microsoft.com/en-us/dotnet/api/system.drawing?view=netframework-4.8.1)
+можеш пронаћи у
+[званичној документацији](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.bitmap?view=netframework-4.8.1).
+
+На пример:
+
+```cs
+protected override void OnPaint(PaintEventArgs e)
+{
+    this.Text = "Promena piksela";
+    this.Size = new Size(640, 480);
+    Bitmap bmp = new Bitmap(300, 300);
+    for (int x = 0; x < 300; x++)
+    {
+        for (int y = 0; y < 300; y++)
+        {
+            int red = (x * 255) / 300;
+            int green = (y * 255) / 300;
+            bmp.SetPixel(x, y, Color.FromArgb(red, green, 128));
+        }
+    }
+    e.Graphics.DrawImage(bmp, 50, 50);
+}
+```
+
+![Постављање пиксела](./images/Postavljanje.png)
+
+Како објекти класе `Bitmap` користе системске ресурсе, препоручљиво је
+користити `using` или ручно позвати `Dispose()` за ослобађање ресурса. Због
+тога, на крају претходног примера требаш написати...
+
+```cs
+bmp.Dispose();
+```
+
+...или приликом креирања објекта класе `Bitmap` требаш користити `using`:
+
+```cs
+protected override void OnPaint(PaintEventArgs e)
+{
+    this.Text = "Promena piksela";
+    this.Size = new Size(640, 480);
+    using (Bitmap bmp = new Bitmap(300, 300))
+    {
+        for (int x = 0; x < 300; x++)
+        {
+            for (int y = 0; y < 300; y++)
+            {
+                int red = (x * 255) / 300;
+                int green = (y * 255) / 300;
+                bmp.SetPixel(x, y, Color.FromArgb(red, green, 128));
+            }
+        }
+        e.Graphics.DrawImage(bmp, 50, 50);
+    }
+}
+```
+
+Значи, класа `Bitmap` јесте одлична класа за рад са растерском графиком у
+програмском језику C#, која омогућује манипулацију сликама, обраду пиксела и
+цртање, али захтева пажљиво управљање меморијом због коришћења системских
+ресурса.
