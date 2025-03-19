@@ -24,4 +24,5 @@
 00_uvod
 01_graphics
 02_image_bitmap
+03_strukture
 ```
