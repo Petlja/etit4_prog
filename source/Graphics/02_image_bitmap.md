@@ -34,7 +34,11 @@
 Омогућава и промену формата слике и чување у различитим форматима, а подржава
 основне трансформације слика, попут ротирања и промена величине.
 
-Пример коришћења класе `Image` може да буде Windows Forms апликација којом се
+Објекат класе `Image` имплементира `IDisposable` интерфејс, што значи да треба
+да се ослободи након употребе. То се може урадити ручно позивањем `Dispose()`
+или коришћењем `using` наредбе, што је препоручен начин.
+
+Пример коришћења класе `Image` може да буде *Windows Forms* апликација којом се
 учитава и приказује слику из фајла `slika.jpg` на форми:
 
 ```cs
@@ -42,9 +46,11 @@ protected override void OnPaint(PaintEventArgs e)
 {
     this.Text = "Prikaz slike";
     this.Size = new Size(360, 380);
-    Image img = Image.FromFile("slika.jpg");
-    Graphics g = e.Graphics;
-    g.DrawImage(img, 10, 10, img.Width, img.Height);
+    using (Image img = Image.FromFile("slika.jpg"))
+    {
+        Graphics g = e.Graphics;
+        g.DrawImage(img, 10, 10, img.Width, img.Height);
+    }
 }
 ```
 
@@ -68,38 +74,8 @@ protected override void OnPaint(PaintEventArgs e)
 можеш пронаћи у
 [званичној документацији](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.bitmap?view=netframework-4.8.1).
 
-На пример:
-
-```cs
-protected override void OnPaint(PaintEventArgs e)
-{
-    this.Text = "Promena piksela";
-    this.Size = new Size(640, 480);
-    Bitmap bmp = new Bitmap(300, 300);
-    for (int x = 0; x < 300; x++)
-    {
-        for (int y = 0; y < 300; y++)
-        {
-            int red = (x * 255) / 300;
-            int green = (y * 255) / 300;
-            bmp.SetPixel(x, y, Color.FromArgb(red, green, 128));
-        }
-    }
-    e.Graphics.DrawImage(bmp, 50, 50);
-}
-```
-
-![Постављање пиксела](./images/Postavljanje.png)
-
-Како објекти класе `Bitmap` користе системске ресурсе, препоручљиво је
-користити `using` или ручно позвати `Dispose()` за ослобађање ресурса. Због
-тога, на крају претходног примера требаш написати...
-
-```cs
-bmp.Dispose();
-```
-
-...или приликом креирања објекта класе `Bitmap` требаш користити `using`:
+И објекти класе `Bitmap` користе системске ресурсе, па је препоручљиво
+користити `using` или ручно позвати `Dispose()` за ослобађање ресурса:
 
 ```cs
 protected override void OnPaint(PaintEventArgs e)
@@ -121,6 +97,8 @@ protected override void OnPaint(PaintEventArgs e)
     }
 }
 ```
+
+![Постављање пиксела](./images/Postavljanje.png)
 
 Значи, класа `Bitmap` јесте одлична класа за рад са растерском графиком у
 програмском језику C#, која омогућује манипулацију сликама, обраду пиксела и
