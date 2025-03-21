@@ -57,10 +57,47 @@ protected override void OnPaint(PaintEventArgs e)
 
 ## Терминатори линијa
 
-Терминатори линије одређују како ће се крајеви линија приказати. Подешавају се
-својством `LineCap` објекта `Pen`, а неке од вредности су:
+Терминатори линије одређују како ће се завршеци линија, односно `Pen` објекта
+приказати. Подешавају се вредностима дефинисаним у енумерацији `LineCap`:
 
-* `LineCap.Flat`, без завршног украса,
-* `LineCap.Round`, заобљени крајеви линија,
-* `LineCap.Square`, квадратни завршетак,
-* `LineCap.ArrowAnchor`, стрелица на крају линије.
+| Назив           | Вредност | Опис                                |
+|-----------------|----------|-------------------------------------|
+| `Flat`          | `0`      | подразумевани завршетак             |
+| `Square`        | `1`      | квадратни завршетак                 |
+| `Round`         | `2`      | заобљени завршетак                  |
+| `Triangle`      | `3`      | троугласти завршетак                |
+| `NoAnchor`      | `16`     | без облика на завршетку             |
+| `SquareAnchor`  | `17`     | квадратни облик на завршетку        |
+| `RoundAnchor`   | `18`     | кружни облик на завршетку           |
+| `DiamondAnchor` | `19`     | дијамантски облик на завршетку      |
+| `ArrowAnchor`   | `20`     | облик стрелице на завршетку         |
+| `AnchorMask`    | `240`    | за проверу да ли је завршетак облик |
+| `Custom`        | `255`    | прилагођени завршетак               |
+
+На пример:
+
+```cs
+protected override void OnPaint(PaintEventArgs e)
+{
+    this.Size = new Size(320, 240);
+    this.Text = "Terminatori linija";
+    Graphics g = e.Graphics;
+    using (Pen olovka = new Pen(Color.Black, 10))
+    {
+        olovka.StartCap = LineCap.Flat;
+        olovka.EndCap = LineCap.Square;
+        e.Graphics.DrawLine(olovka, 50, 40, 250, 40);
+        olovka.StartCap = LineCap.Round;
+        olovka.EndCap = LineCap.Triangle;
+        e.Graphics.DrawLine(olovka, 50, 80, 250, 80);
+        olovka.StartCap = LineCap.SquareAnchor;
+        olovka.EndCap = LineCap.RoundAnchor;
+        e.Graphics.DrawLine(olovka, 50, 120, 250, 120);
+        olovka.StartCap = LineCap.DiamondAnchor;
+        olovka.EndCap = LineCap.ArrowAnchor;
+        e.Graphics.DrawLine(olovka, 50, 160, 250, 160);
+    }
+}
+```
+
+![Терминатори линија](./images/TerminatoriLinija.png)
