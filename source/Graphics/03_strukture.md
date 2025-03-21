@@ -53,24 +53,21 @@ protected override void OnPaint(PaintEventArgs e)
     Color eliBoja = Color.Red;
     Color linBoja = Color.Green;
     Color txtBoja = Color.Black;
-    Pen prvPen = new Pen(prvBoja, 3);
-    Pen eliPen = new Pen(eliBoja, 2);
-    Pen linPen = new Pen(linBoja, 2);
-    Brush txtCetka = new SolidBrush(txtBoja);
-    Point pocTacka = new Point(50, 50);
-    Size prvVel = new Size(200, 100);
-    Rectangle prv = new Rectangle(pocTacka, prvVel);
-    g.DrawRectangle(prvPen, prv);
-    g.DrawEllipse(eliPen, prv);
-    g.DrawLine(linPen, prv.Left, prv.Top, prv.Right, prv.Bottom);
-    string text = "Upotreba struktura";
-    Font font = new Font("Arial", 12);
-    g.DrawString(text, font, txtCetka, new PointF(prv.Left + 26.7f, prv.Top + 40.12f));
-    prvPen.Dispose();
-    eliPen.Dispose();
-    linPen.Dispose();
-    txtCetka.Dispose();
-    font.Dispose();
+    using (Pen prvPen = new Pen(prvBoja, 3))
+    using (Pen eliPen = new Pen(eliBoja, 2))
+    using (Pen linPen = new Pen(linBoja, 2))
+    using (Brush txtCetka = new SolidBrush(txtBoja))
+    using (Font font = new Font("Arial", 12))
+    {
+        Point pocTacka = new Point(50, 50);
+        Size prvVel = new Size(200, 100);
+        Rectangle prv = new Rectangle(pocTacka, prvVel);
+        g.DrawRectangle(prvPen, prv);
+        g.DrawEllipse(eliPen, prv);
+        g.DrawLine(linPen, prv.Left, prv.Top, prv.Right, prv.Bottom);
+        string text = "Upotreba struktura";
+        g.DrawString(text, font, txtCetka, new PointF(prv.Left + 26.7f, prv.Top + 40.12f));
+    }
 }
 ```
 
