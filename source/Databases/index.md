@@ -9,4 +9,5 @@ uvod
 alati
 skripta
 pristup
+string
 ```
