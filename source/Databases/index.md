@@ -7,4 +7,6 @@
 
 uvod
 alati
+skripta
+pristup
 ```
