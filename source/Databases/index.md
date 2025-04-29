@@ -8,6 +8,6 @@
 uvod
 alati
 skripta
-pristup
 string
+pristup
 ```
