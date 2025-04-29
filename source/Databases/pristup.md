@@ -49,8 +49,7 @@ internal class Program
 {
     static void Main()
     {
-        string connString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True";
-        using (SqlConnection conn = new SqlConnection(connString))
+        using (SqlConnection conn = new SqlConnection("Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True"))
         {
             conn.Open();
             SqlCommand cmd = new SqlCommand("SELECT * FROM Customers", conn);
@@ -71,11 +70,6 @@ internal class Program
 простор `System.Data.SqlClient` који садржи класе за рад са *SQL Server*-ом
 `SqlConnection`, `SqlCommand` и `SqlDataReader`.
 
-Дефинисам је конекциони стринг `connString` у којем се јасно виде следеће
-одлике конекције: извор података је инстанца *SQL Server*-а у локалу
-(`LOCALHOST\SQLEXPRESS`), име базе је `Northwind` и аутентификација се врши
-преко *Windows*-а, без корисничког имена и лозинке.
-
 Објекту класе `SqlConnection` названом `conn` прослеђен је конекциони стринг
 чиме је креиран објекат који представља конекцију са базом, а методом `Open()`
 конекција је и отворена. Објекат класе `SqlCommand` назван `cmd` везује упит
@@ -87,8 +81,9 @@ internal class Program
 `Read()` позива ред по ред. `reader["CompanyName"]` приступа колони
 `CompanyName` у тренутном реду, где се резултат конвертује у стринг и исписује
 у конзоли. Када нема више редова, метода `Read()` враћа `false` чиме ће се
-завршити `while` циклус. Нема потребе експлицитно затварати `SqlDataReader` и `SqlConnection`
-јер се налазе у `using` блоковима који ће их аутоматски затворити.
+завршити `while` циклус. Нема потребе експлицитно затварати `SqlDataReader` и `SqlConnection` јер се налазе у `using` блоковима који ће их аутоматски
+затворити. `using` блокови обезбеђује да се ресурси ослободе чак и ако дође до
+изузетка.
 
 ## Бесконекциони приступ
 
@@ -133,9 +128,8 @@ internal class Program
 {
     static void Main()
     {
-        string connString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True";
         DataTable dt = new DataTable();
-        using (SqlConnection conn = new SqlConnection(connString))
+        using (SqlConnection conn = new SqlConnection("Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True"))
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Customers", conn);
             adapter.Fill(dt);
@@ -153,11 +147,6 @@ internal class Program
 простор `System.Data`, који садржи класе за рад са подацима у меморији као што
 су `DataTable` и `DataRow` и именски простор `System.Data.SqlClient`, који
 садржи класе за рад са *SQL Server*-ом `SqlConnection` и `SqlDataAdapter`.
-
-Дефинисан је конекциони стринг `connString` у којем се јасно виде следеће
-одлике конекције: извор података је инстанца *SQL Server*-а у локалу
-(`LOCALHOST\SQLEXPRESS`), име базе је `Northwind`, а аутентификација се врши
-преко *Windows*-а без корисничког имена и лозинке.
 
 Креиран је објекат класе `DataTable` под именом `dt`, који ће у меморији чувати
 резултате упита. Објекат класе `SqlConnection` назван `conn` представља

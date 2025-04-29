@@ -9,5 +9,6 @@ uvod
 alati
 skripta
 string
+provajderi
 pristup
 ```
