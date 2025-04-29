@@ -11,4 +11,5 @@ skripta
 string
 provajderi
 pristup
+parametri
 ```

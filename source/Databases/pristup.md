@@ -85,6 +85,32 @@ internal class Program
 затворити. `using` блокови обезбеђује да се ресурси ослободе чак и ако дође до
 изузетка.
 
+Исту логику можеш применити и приликом израде *Windows Forms* апликације која
+изгледа, на пример, овако:
+
+![WindowsFormsApp](./images/access.png)
+
+Методу у којој треба да дефинишеш догађај клика на дугме
+`Испиши имена компанија` може да изгледа овако:
+
+```cs
+private void button1_Click(object sender, EventArgs e)
+{
+    using (SqlConnection conn = new SqlConnection("Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True"))
+    {
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Customers", conn);
+        using (SqlDataReader reader = cmd.ExecuteReader())
+        {
+            while (reader.Read())
+            {
+                listBox1.Items.Add(reader["CompanyName"].ToString());
+            }
+        }
+    }
+}
+```
+
 ## Бесконекциони приступ
 
 Бесконекциони приступ (енгл. *Disconnected Access*) подразумева да твоја
@@ -159,6 +185,30 @@ internal class Program
 редове у `dt`, где се за сваки ред исписује вредност колоне `CompanyName`.
 Пошто су `SqlConnection` и други објекти обухваћени `using` блоком, њихово
 ослобађање ресурса се дешава аутоматски.
+
+Уколико задатак треба да решиш у *Windows Forms* апликацији која треба да
+изгледа, на пример, овако...
+
+![WindowsFormsApp](./images/access.png)
+
+...можеш да примениш исту логику решења коју си користио и у конзолној
+апликацији:
+
+```cs
+private void button1_Click(object sender, EventArgs e)
+{
+    DataTable dt = new DataTable();
+    using (SqlConnection conn = new SqlConnection("Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True"))
+    {
+        SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Customers", conn);
+        adapter.Fill(dt);
+        foreach (DataRow row in dt.Rows)
+        {
+            listBox1.Items.Add(row["CompanyName"].ToString());
+        }
+    }
+}
+```
 
 ## Поређење приступа
 
