@@ -43,7 +43,7 @@
 ```cs
 private void btnLogin_Click(object sender, EventArgs e)
 {
-    string username = txtUserName.Text;
+    string username = txtUsername.Text;
     string password = txtPassword.Text;
     string connString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Domaci;Integrated Security=True";
     string sqlUpit = $"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'";
@@ -97,4 +97,59 @@ SELECT * FROM users WHERE username = '' OR 1 = 1 --' AND password = ''
 Значи, ако упит садржи било какав унос корисника, никад немој да формираш упит
 као стринг! Увек користи параметризоване упите, као у делу лекције који следи.
 
-## Параметризовани упити
+## Параметризовање упита методом AddWithValue
+
+Да би избегao опасности од *SQL injection* рањивости апликације, потребно је да
+користиш параметризоване упите. То значи да SQL упит не садржи директно
+кориснички унос као део текста, већ се уместо тога користе параметри који се
+додељују преко методе `AddWithValue()`. На тај начин се кориснички унос никада
+не тумачи као део SQL синтаксе, већ искључиво као вредност. Ево како можеш исти
+пример пријаве корисника написати на безбедан начин:
+
+```cs
+private void btnLogin_Click(object sender, EventArgs e)
+{
+    string username = txtUsername.Text;
+    string password = txtPassword.Text;
+    string connString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Domaci;Integrated Security=True";
+    string sqlUpit = "SELECT * FROM users WHERE username = @username AND password = @password";
+    
+    using (SqlConnection conn = new SqlConnection(connString))
+    {
+        conn.Open();
+        SqlCommand cmd = new SqlCommand(sqlUpit, conn);
+        cmd.Parameters.AddWithValue("@username", username);
+        cmd.Parameters.AddWithValue("@password", password);
+        using (SqlDataReader reader = cmd.ExecuteReader())
+        {
+            if (reader.HasRows)
+            {
+                // Pokretanje glavnog dela programa
+            }
+            else
+            {
+                MessageBox.Show("Pogresno korisnicko ime ili lozinka!");
+            }
+        }
+    }
+}
+```
+
+Значи, уместо да у `sqlUpit` директно убацујеш `username` и `password`,
+користиш именоване параметре `@username` и `@password`. Методом
+`AddWithValue()` се тим параметрима додељују вредности које је корисник унео.
+На овај начин, чак и ако неко покуша да убаци SQL кôд (нпр. `' OR 1 = 1 --`),
+тај унос ће бити третиран као обична текстуална вредност, а не као део упита.
+SQL сервер се брине да ови подаци не угрозе структуру упита, чиме се у
+потпуности елиминише ризик од *SQL injection*-а.
+
+Обрати пажњу на именовање параметара - ако користиш `@username` у упиту, мораш
+тај исти идентификатор да користиш и у методи `AddWithValue()`. У супротном,
+јавиће се грешка јер SQL сервер неће препознати параметар. Назив параметра мора
+увек да почне са карактером `@` и у методи `AddWithValue()` и у SQL упиту.
+У језику *T-SQL* параметри нису осетљиви на велика/мала слова, али у
+програмском језику *C#* јесу, па је зато добра пракса да будеш доследан
+приликом именовања идентификатора параметара. О стиловима именовања
+идентификатора [учио си у првом разреду](https://petlja.org/sr-Latn-RS/kurs/11231/3/7986).
+
+## Параметризовање упита методом Add
