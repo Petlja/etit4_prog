@@ -13,4 +13,6 @@ provajderi
 pristup
 parametri
 procedure
+izuzeci
+izuzeci_kviz
 ```
