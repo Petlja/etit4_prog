@@ -1,9 +1,9 @@
 # Пренос параметара командном објекту
 
 Када се говори о преносу параметара командном објекту, мисли се на начин на
-који се вредности прослеђују у SQL упите или складиштене процедуре путем
+који се вредности прослеђују у SQL упите или ускладиштене процедуре путем
 `SqlCommand` објекта. Ово је кључно за: безбедност, јер се избегава могућност
-*SQL injection*-а, перформансе јјер је боља припрема и кеширање упита, и на
+*SQL injection*-а, перформансе јер је боља припрема и кеширање упита, и на
 крају, за јасноћу. и одвојеност логике и података.
 
 *SQL injection (SQLi)* је један од најстаријих и најопаснијих облика сајбер
@@ -21,12 +21,12 @@
 
 ## Како НЕ ТРЕБА слати упите командном објекту
 
-Замисли да у некој бази података постоји табела `Users` која садржи личне
+Замисли да у бази података `Primer` постоји табела `Users` која садржи личне
 или осетљиве податке корисника неке апликације. Нека то за пример буду поља
-корисничко име (`UserName`) и лозинка (`Password`) која је сачувана као
+корисничко име (`Username`) и лозинка (`Password`) која је сачувана као
 отворени текст, на пример овако:
 
-| UserID | UserName | Password |
+| UserID | Username | Password |
 |--------|----------|----------|
 | 1      | paja     | p@55w0rd |
 | 2      | raja     | R@j@2025 |
@@ -36,7 +36,12 @@
 
 Програмер је направио форму за пријаву корисника. Ако корисник унесе тачно
 корисничко име и лозинку покренуће се главни програм, а у супротном јавиће се
-грешка. Форма за пријаву и кôд догађа клика на дугме за пријаву изгледа овако:
+грешка.
+
+*Напомена: У пракси лозинке се никада не чувају у форми отвореног текста - чува
+се само њихова хеш вредност!*
+
+Форма за пријаву и кôд догађа клика на дугме за пријаву изгледа овако:
 
 ![SQL injection](./images/sqli.png)
 
@@ -45,7 +50,7 @@ private void btnLogin_Click(object sender, EventArgs e)
 {
     string username = txtUsername.Text;
     string password = txtPassword.Text;
-    string connString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Domaci;Integrated Security=True";
+    string connString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Primer;Integrated Security=True";
     string sqlUpit = $"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'";
     using (SqlConnection conn = new SqlConnection(connString))
     {
@@ -77,7 +82,7 @@ private void btnLogin_Click(object sender, EventArgs e)
 Ако овакву апликацију користи злонамерни корисник, он у пољу за унос
 корисничког имена може унети...
 
-```sql
+```text
 ' OR 1 = 1 --
 ```
 
@@ -111,9 +116,8 @@ private void btnLogin_Click(object sender, EventArgs e)
 {
     string username = txtUsername.Text;
     string password = txtPassword.Text;
-    string connString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Domaci;Integrated Security=True";
+    string connString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Primer;Integrated Security=True";
     string sqlUpit = "SELECT * FROM users WHERE username = @username AND password = @password";
-    
     using (SqlConnection conn = new SqlConnection(connString))
     {
         conn.Open();
@@ -153,3 +157,63 @@ SQL сервер се брине да ови подаци не угрозе ст
 идентификатора [учио си у првом разреду](https://petlja.org/sr-Latn-RS/kurs/11231/3/7986).
 
 ## Параметризовање упита методом Add
+
+Иако је метода `AddWithValue` згодна за брзо писање кода, у пракси се
+препоручује употреба методе `Add`, где се тачно наводи тип података и, ако је
+потребно, величина параметра. Ово је посебно важно када радиш са текстуалним
+пољима, јер погрешна претпоставка о типу или дужини може довести до неефикасних
+упита или грешака у раду са базом.
+
+Претходни пример написан помоћу методе `Add` изгледао би овако:
+
+```cs
+private void btnLogin_Click(object sender, EventArgs e)
+{
+    string username = txtUsername.Text;
+    string password = txtPassword.Text;
+    string connString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Primer;Integrated Security=True";
+    string sqlUpit = "SELECT * FROM users WHERE username = @username AND password = @password";
+    using (SqlConnection conn = new SqlConnection(connString))
+    {
+        conn.Open();
+        SqlCommand cmd = new SqlCommand(sqlUpit, conn);
+        cmd.Parameters.Add("@username", SqlDbType.NVarChar, 50).Value = username;
+        cmd.Parameters.Add("@password", SqlDbType.NVarChar, 50).Value = password;
+        using (SqlDataReader reader = cmd.ExecuteReader())
+        {
+            if (reader.HasRows)
+            {
+                // Pokretanje glavnog dela programa
+            }
+            else
+            {
+                MessageBox.Show("Pogresno korisnicko ime ili lozinka!");
+            }
+        }
+    }
+}
+```
+
+Зашто је боље да користиш методу `Add`? Ако је поље `username` у бази типа
+`nvarchar(50)`, онда треба и параметар да буде таквог типа. Иначе *SQL Server*
+може непотребно да прави конверзију типа или да погрешно оптимизује упит. Када
+се тип и величина подударају, *SQL Server* биће ефикаснији приликом извршавања
+упита.
+
+Сада је право време да се подсетиш [лекција о типовима података](https://petlja.org/sr-Latn-RS/kurs/14469/2/9846)
+у програмском језику C# и упоредиш их са онима које си користио у наставном
+предмету Базе података у II и III разреду, односно са типовима података у
+*SQL Server Database Engine*-у. *SQL Server* и *.NET Framework* засновани су на
+различитим системима типова података. Иако изгледа да имају сличне типове (нпр.
+`System.Double` у *.NET Framework*-у и `float` у *SQL Server*-у), њихова
+унутрашња структура и прецизност често се разликују. Зато, када апликација чита
+или шаље бројеве ка бази, *.NET Framework* алати, попут *SqlDataReader*-а дају
+ти могућност да бираш да ли желиш *SQL Server* тип (нпр. `SqlDouble`) или
+*.NET Framework* тип (нпр. `double`). Приликом креирања параметара, можеш
+прецизно да кажеш који је тип података тако што користиш `DbType.Double` или
+`SqlDbType.Float`, како би све било што тачније и како не би дошло до губитка
+података.
+
+Комплетна табела за мапирање типова *SQL Server Database Engine*-а и
+*.NET Framework*-а можеш погледати у
+[прилогу са мапирањем типова](../Appendixes/mapiranje.md).
