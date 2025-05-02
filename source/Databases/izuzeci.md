@@ -36,7 +36,6 @@ internal class Program
         Console.Write("Unesi naziv grada: ");
         string city = Console.ReadLine();
         string connString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True";
-        DataTable dt = new DataTable();
         using (SqlConnection conn = new SqlConnection(connString))
         {
             conn.Open();
@@ -44,6 +43,7 @@ internal class Program
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@City", SqlDbType.NVarChar, 15).Value = city;
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
             adapter.Fill(dt);
             Console.WriteLine("U zadatom gradu nalaze se sledeći kupci:");
             foreach (DataRow row in dt.Rows)
@@ -107,7 +107,6 @@ internal class Program
             return;
         }
         string connString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True";
-        DataTable dt = new DataTable();
         try
         {
             using (SqlConnection conn = new SqlConnection(connString))
@@ -117,6 +116,7 @@ internal class Program
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@City", SqlDbType.NVarChar, 15).Value = city;
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
                 adapter.Fill(dt);
                 if (dt.Rows.Count == 0)
                 {
