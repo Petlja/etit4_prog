@@ -18,4 +18,5 @@ izuzeci_kviz
 systemdata
 systemdata_kviz
 klase
+ucitavanje
 ```
