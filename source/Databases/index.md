@@ -19,4 +19,5 @@ systemdata
 systemdata_kviz
 klase
 ucitavanje
+upisivanje
 ```

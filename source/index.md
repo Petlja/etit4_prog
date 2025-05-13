@@ -40,6 +40,7 @@ useful:
 :maxdepth: 1
 :caption: Садржај
 
+UI/index
 Generics/index
 Graphics/index
 Databases/index
