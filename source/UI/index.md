@@ -23,4 +23,7 @@
 
 uvod
 dijalog_poruke
+dijalog_colorfont
+fontovi
+dijalog_filefolder
 ```
