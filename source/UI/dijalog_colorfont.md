@@ -23,11 +23,27 @@ Toolbox, пронађите ColorDialog контролу у секцији Dialo
 
 ![Додавање дијалога за одабир боја](./images/color1.png)
 
-Други начин је да креираш објекат класе `ColorDialog` у самом коду:
+Други начин је да креираш објекат класе `ColorDialog` у самом коду.
 
 ```cs
 ColorDialog colorDialog1 = new ColorDialog();
 ```
+
+Када се дијалози креирају директно у коду (нпр.
+`ColorDialog colorDialog1 = new ColorDialog();` унутар методе), добра је пракса
+да користиш `using` како би се осигурало да се ресурси које дијалог користи
+правилно ослободе (посредством `Dispose()` методе). Ово је посебно важно ако се
+инстанца дијалога креира и користи само унутар једне методе.
+
+```cs
+using (ColorDialog colorDialog1 = new ColorDialog())
+{
+    // Kod za rad sa dijalogom...
+}
+```
+
+Уколико је дијалог додат на форму преко дизајнера, .NET Framework ће се
+побринути за његово ослобађање.
 
 Након додавања дијалога за одабир боје на форму, нека је задатак да промениш
 боју фонта једне лабеле на форми одабиром боје из дијалога за одабир боје.
@@ -37,6 +53,20 @@ ColorDialog colorDialog1 = new ColorDialog();
 ```cs
 private void IzaberiBojuBtn_Click(object sender, EventArgs e)
 {
+    DialogResult r = colorDialog1.ShowDialog();
+    if (r == DialogResult.OK)
+    {
+        TekstLabel.ForeColor = colorDialog1.Color;
+    }
+}
+```
+
+Уколико је потребно, дијалог можеш иницијализовати са почетним вредностима:
+
+```cs
+private void IzaberiBojuBtn_Click(object sender, EventArgs e)
+{
+    colorDialog1.Color = TekstLabel.ForeColor;
     DialogResult r = colorDialog1.ShowDialog();
     if (r == DialogResult.OK)
     {
@@ -90,6 +120,17 @@ Colors) биће онемогућено.
 FontDialog fontDialog1 = new FontDialog();
 ```
 
+За `FontDialog` такође важи да када дијалоге креираш директно у коду, добра је
+пракса да користиш `using` како би се осигурало да се ресурси које дијалог
+користи правилно ослободе.
+
+```cs
+using (FontDialog fontDialog1 = new FontDialog())
+{
+    // Kod za rad sa dijalogom...
+}
+```
+
 Након додавања дијалога за одабир фонта на форму, нека је задатак да промениш
 фонт једне лабеле на форми одабиром фонта из дијалога за одабир фонта.
 
@@ -110,13 +151,35 @@ private void IzaberiFontBtn_Click(object sender, EventArgs e)
 }
 ```
 
+Уколико је потребно, дијалог можеш иницијализовати са почетним вредностима:
+
+```cs
+private void IzaberiFontBtn_Click(object sender, EventArgs e)
+{
+    fontDialog1.Font = TekstLabel.Font;
+    if (fontDialog1.ShowColor) // ako je opcija za boju uključena
+    {
+        fontDialog1.Color = TekstLabel.ForeColor;
+    }
+    DialogResult r = fontDialog1.ShowDialog();
+    if (r == DialogResult.OK)
+    {
+        TekstLabel.Font = fontDialog1.Font;
+        if (fontDialog1.ShowColor)
+        {
+            TekstLabel.ForeColor = fontDialog1.Color;
+        }
+    }
+}
+```
+
 Дијалог за одабир фонта ће се приказати када се кликне на дугме...
 
-![Дијалог за одабир боје](./images/fontd2.png)
+![Дијалог за одабир фонта отворен након клика на дугме](./images/fontd2.png)
 
 ...па ако је одабран фонт и притиснуто дугме OK, фонт ће се у лабели променити:
 
-![Дијалог за одабир боје](./images/fontd3.png)
+![Промењен фонт у лабели](./images/fontd3.png)
 
 Важна својства дијалога за одабир фонта су:
 
