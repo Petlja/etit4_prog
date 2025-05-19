@@ -28,4 +28,5 @@
 04_jedinice_mere
 05_linije
 06_krive_linije
+elipsa_krug
 ```
