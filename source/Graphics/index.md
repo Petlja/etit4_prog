@@ -30,5 +30,9 @@
 06_krive_linije
 elipsa_krug
 luk_isecak
+<<<<<<< HEAD
 string
+=======
+transformacije
+>>>>>>> 58fe0e62a1fb6631c83febb8a7c689f68db78a21
 ```
