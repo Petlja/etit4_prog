@@ -32,4 +32,8 @@ elipsa_krug
 luk_isecak
 string
 transformacije
+niti
+animacije
+slozene_animacije
+animacije_i_igre
 ```
