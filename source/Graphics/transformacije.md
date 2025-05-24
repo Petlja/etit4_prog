@@ -1,10 +1,10 @@
 # Трансформације графичког објекта
 
-Трансформације графичких објеката представљају скуп операција које мењају
-положај, оријентацију и величину објекта у координатном систему. Ове операције
-се најчешће користе у комбинацији са класама
+Трансформација графичког објекта представља скуп операција којим се мења
+положај, оријентација и величина објекта у координатном систему. Ове операције
+су дефинисане у класи
 [`Graphics`](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.graphics?view=netframework-4.8)
-и трансформационим матрицама
+а често се користе у комбинацији трансформационим матрицама
 [`Matrix`](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.drawing2d.matrix?view=netframework-4.8).
 
 Основне трансформације су:
@@ -14,53 +14,58 @@
 - **Скалирање** (енгл. *Scaling*) представља промену величине објекта и
 - **Ресет** (енгл. *Reset*) представља враћање у почетно стање.
 
-Основна форма за цртање може да изгледа овако:
+Нека је задат правоугаоник са координатама $(100, 50)$ и $(100, 60)$:
 
 ```cs
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-
-public class TransformExample : Form
+protected override void OnPaint(PaintEventArgs e)
 {
-    public TransformExample()
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
     {
-        this.Text = "Графичке трансформације";
-        this.Size = new Size(500, 500);
-        this.Paint += new PaintEventHandler(this.OnPaint);
-    }
-
-    private void OnPaint(object sender, PaintEventArgs e)
-    {
-        Graphics g = e.Graphics;
-        Rectangle rect = new Rectangle(100, 100, 100, 60);
-        g.DrawRectangle(Pens.Black, rect);
+        Rectangle r = new Rectangle(100, 50, 100, 60);
+        g.DrawRectangle(p, r);
     }
 }
 ```
 
+![Трансформације](./images/Transformacije1.png)
+
 ## Транслација
 
-Транслација је графичка трансформација која **помера објекат по X и Y оси**, за
-шта ћеш користити методу
+Транслација је графичка трансформација која **помера објекат по X и Y оси**. За
+реализацију транслације користи се метода
 [`TranslateTransform()`](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.graphics.translatetransform?view=netframework-4.8)
 из класе `Graphics`. Постоје два преоптерећења ове методе...
 
 ```cs
-public void TranslateTransform(float dx, float dy);
-public void TranslateTransform(float dx, float dy, MatrixOrder order);
+TranslateTransform(float, float);
+TranslateTransform(float, float, MatrixOrder);
 ```
 
 ...где се у првом најједноставнијем наводе само параметри за померање по X и по
-Y оси:
+Y оси. У следећем примеру...
 
 ```cs
-g.TranslateTransform(100, 50);
-g.DrawRectangle(Pens.Red, 0, 0, 80, 50);
+protected override void OnPaint(PaintEventArgs e)
+{
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
+    {
+        Rectangle r = new Rectangle(100, 50, 100, 60);
+        g.DrawRectangle(p, r);
+        g.TranslateTransform(20, 20); // ili (20.0F, 20.0F)
+        g.DrawRectangle(p, r);
+    }
+}
 ```
 
-Извршавањем овог кода, правоугаоник ће се померити за 100 пиксела десно и за 50
-пиксела надоле.
+...правоугаоник ће се померити за 20 пиксела десно и за 20 пиксела надоле.
+
+![Транслација](./images/Translacija1.png)
 
 У другом преоптерећењу, поред параметара за померање по X и по Y оси, наводи се
 и `MatrixOrder` којим се да дефинише редослед у којем се трансформације
@@ -72,18 +77,46 @@ g.DrawRectangle(Pens.Red, 0, 0, 80, 50);
 резултат! У овом примеру ће се објекат прво ротирати па онда померати...
 
 ```cs
-g.RotateTransform(45);
-g.TranslateTransform(100, 0, MatrixOrder.Append);
+protected override void OnPaint(PaintEventArgs e)
+{
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
+    {
+        Rectangle r = new Rectangle(100, 50, 100, 60);
+        g.DrawRectangle(p, r);
+        g.RotateTransform(30);
+        g.TranslateTransform(20, 20, MatrixOrder.Append);
+        g.DrawRectangle(p, r);
+    }
+}
 ```
+
+![Транслација](./images/Translacija2.png)
 
 ...док ће се у овом објекат прво померати па онда ротирати:
 
 ```cs
-g.RotateTransform(45);
-g.TranslateTransform(100, 0, MatrixOrder.Prepend);
+protected override void OnPaint(PaintEventArgs e)
+{
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
+    {
+        Rectangle r = new Rectangle(20, 20, 120, 80);
+        g.DrawRectangle(p, r);
+        g.RotateTransform(30);
+        g.TranslateTransform(20, 20, MatrixOrder.Prepend);
+        g.DrawRectangle(p, r);
+    }
+}
 ```
 
-За једноставне задатке, `TranslateTransform(dx, dy)` без `MatrixOrder` је
+![Транслација](./images/Translacija3.png)
+
+За једноставне задатке, `TranslateTransform(float, float)` без `MatrixOrder` је
 довољан. За комбинацију више трансформација (нпр. скалирање са ротацијом и
 транслацијом), увек треба да експлицитно наведеш `MatrixOrder` ради прецизније
 контроле.
@@ -92,118 +125,222 @@ g.TranslateTransform(100, 0, MatrixOrder.Prepend);
 
 Ротација је трансформација која ротира графички објекат око почетка
 координатног система за одређени угао у степенима, у смеру супротном од кретања
-казаљке на сату. У .NET Framework-у, користи се метода
+казаљке на сату. За реализацију ротације користи се метода
 [`RotateTransform`](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.graphics.rotatetransform?view=netframework-4.8)
 из класе `Graphics`. Постоје два преоптерећења ове методе...
 
 ```cs
-public void RotateTransform(float angle);
-public void RotateTransform(float angle, MatrixOrder order);
+RotateTransform(float);
+RotateTransform(float, MatrixOrder);
 ```
 
-...где се у првом најједноставнијем наводи само угао ротације у степенима:
+...где се у првом најједноставнијем наводи само угао ротације у степенима. У
+следећем примеру...
 
 ```cs
-g.RotateTransform(45);
-g.DrawRectangle(Pens.Red, 0, 0, 100, 60);
+protected override void OnPaint(PaintEventArgs e)
+{
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
+    {
+        Rectangle r = new Rectangle(100, 50, 100, 60);
+        g.DrawRectangle(p, r);
+        g.RotateTransform(30); // ili (30.0F)
+        g.DrawRectangle(p, r);
+    }
+}
 ```
 
-Извршавањем овог кода, правоугаоник ће се ротирати за 45° око почетка
-координатног система (0,0).
+правоугаоник ће се ротирати за $30°$ око почетка координатног система $(0,0)$.
 
-У другом преоптерећењу, наводи се и параметар `MatrixOrder`, који ти као и у
-претходном примеру омогућује да одредиш када се ротација примењује у односу на
+![Ротација](./images/Rotacija1.png)
+
+У другом преоптерећењу, наводи се и параметар `MatrixOrder`, који ти, као и код
+транслације, омогућује да одредиш када се ротација примењује у односу на
 остале трансформације. У првом примеру...
 
 ```cs
-g.RotateTransform(45);
-g.TranslateTransform(100, 0, MatrixOrder.Append);
+protected override void OnPaint(PaintEventArgs e)
+{
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
+    {
+        Rectangle r = new Rectangle(100, 50, 100, 60);
+        g.DrawRectangle(p, r);
+        g.RotateTransform(30);
+        g.TranslateTransform(20, 20, MatrixOrder.Append);
+        g.DrawRectangle(p, r);
+    }
+}
 ```
+
+![Ротација](./images/Rotacija2.png)
 
 ...прво се извршава ротација, па онда транслација, тј. прво се објекат ротира у
 месту, па се тек онда помера, док се у другом примеру...
 
 ```cs
-g.TranslateTransform(100, 0, MatrixOrder.Prepend);
-g.RotateTransform(45);
+protected override void OnPaint(PaintEventArgs e)
+{
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
+    {
+        Rectangle r = new Rectangle(100, 50, 100, 60);
+        g.DrawRectangle(p, r);
+        g.RotateTransform(30);
+        g.TranslateTransform(20, 20, MatrixOrder.Prepend);
+        g.DrawRectangle(p, r);
+    }
+}
 ```
+
+![Ротација](./images/Rotacija3.png)
 
 ...објекат се прво помера, па онда ротира око почетка координатног система.
 
-Ротација се увек извршава око координатног почетка (0,0), па ако желиш да
+Ротација се увек извршава око координатног почетка $(0, 0)$, па ако желиш да
 ротираш објекат око његовог центра, прво га мораш преместити, као у следећем
 примеру...
 
 ```cs
-Rectangle r = new Rectangle(100, 100, 100, 60);
-g.TranslateTransform(r.X + r.Width / 2, r.Y + r.Height / 2);
-g.RotateTransform(45);
-g.DrawRectangle(Pens.Blue, -r.Width / 2, -r.Height / 2, r.Width, r.Height);
+protected override void OnPaint(PaintEventArgs e)
+{
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
+    {
+        Rectangle r = new Rectangle(100, 50, 100, 60);
+        g.DrawRectangle(p, r);
+        g.TranslateTransform(r.X + r.Width / 2, r.Y + r.Height / 2);
+        g.RotateTransform(30);
+        g.DrawRectangle(p, -r.Width / 2, -r.Height / 2, r.Width, r.Height);
+    }
+}
 ```
 
 ...где је ротација извршена око центра правоугаоника.
 
+![Ротација](./images/Rotacija4.png)
+
 Значи, ротација увек ротира цео координатни систем, не само објекат. Да би
-ротација била око центра објекта, треба да користиш `TranslateTransform` пре
-ротације.
+ротација била око центра објекта, треба да користиш методу `TranslateTransform`
+пре ротације, ради померања центра око којег се објекат ротира!
 
 ## 3. Скалирање (Scaling)
 
 Скалирање је трансформација која мења **величину графичког објекта** – може да
-га увећа или умањи по X и/или Y оси. У .NET-у се користи метода
+га увећа или умањи по X и/или Y оси. За реализацију скалирања користи се метода
 [`ScaleTransform`](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.graphics.scaletransform?view=netframework-4.8)
 из класе `Graphics`. Постоје два преоптерећења ове методе...
 
 ```cs
-public void ScaleTransform(float sx, float sy);
-public void ScaleTransform(float sx, float sy, MatrixOrder order);
+ScaleTransform(float, float);
+ScaleTransform(float, float, MatrixOrder);
 ```
 
 ...где се у првом најједноставнијем наводи само фактор скалирања по X и по Y
-оси:
+оси. У следећем примеру...
 
 ```cs
-g.ScaleTransform(1.5f, 0.5f);
-g.DrawRectangle(Pens.Red, 100, 100, 100, 60);
+protected override void OnPaint(PaintEventArgs e)
+{
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
+    {
+        Rectangle r = new Rectangle(100, 50, 100, 60);
+        g.DrawRectangle(p, r);
+        g.ScaleTransform(1.5F, 0.5F);
+        g.DrawRectangle(p, r);
+    }
+}
 ```
 
-Извршавањем овог кода, нацртаће се правоугаоник који је 1.5 пута шири, а 2 пута
-нижи (0.5 пута мањи по Y оси).
+...нацртаће се правоугаоник који је 1.5 пута шири, а 2 пута нижи (0.5 пута мањи
+по Y оси).
 
-У другом преоптерећењу, наводи се и параметар `MatrixOrder`, који ти као и у
-претходном примеру омогућује да одредиш када се скалирање примењује у односу на
-друге трансформације. У првом примеру...
+![Склаирање](./images/Skaliranje1.png)
+
+У другом преоптерећењу, наводи се и параметар `MatrixOrder`, који ти, као и у
+претходнмим примерима омогућује да одредиш када се скалирање примењује у односу
+на друге трансформације. У овом примеру...
 
 ```cs
-g.TranslateTransform(100, 100);
-g.ScaleTransform(2.0f, 2.0f, MatrixOrder.Append);
+protected override void OnPaint(PaintEventArgs e)
+{
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
+    {
+        Rectangle r = new Rectangle(100, 50, 100, 60);
+        g.DrawRectangle(p, r);
+        g.TranslateTransform(50, 50);
+        g.ScaleTransform(1.5F, 0.5F, MatrixOrder.Append);
+        g.DrawRectangle(p, r);
+    }
+}
 ```
 
-...прво се премешта координатни систем, па се након тога све увећава 2 пута,
-док се у другом примеру...
+![Склаирање](./images/Skaliranje2.png)
+
+...прво се врши померање, па након тога скалирање, док се у овом примеру...
 
 ```cs
-g.ScaleTransform(2.0f, 2.0f, MatrixOrder.Prepend);
-g.TranslateTransform(100, 100);
+protected override void OnPaint(PaintEventArgs e)
+{
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
+    {
+        Rectangle r = new Rectangle(100, 50, 100, 60);
+        g.DrawRectangle(p, r);
+        g.TranslateTransform(50, 50);
+        g.ScaleTransform(1.5F, 0.5F, MatrixOrder.Prepend);
+        g.DrawRectangle(p, r);
+    }
+}
 ```
 
-...прво се све увећава дупло, па се онда координате (укључујући померање)
-удвоструче.
+![Склаирање](./images/Skaliranje3.png)
+
+...прво врши скалирање, па након тога померање.
 
 Да би се објекат увећао или умањио око свог центра, потребно је да прво извршиш
 транслацију и помериш координатни систем у центар објекта, па затим скалираш
-објекат и на крају вратиш координатног почетак у горњи леви угао.
-У следећем примеру...
+објекат и на крају вратиш координатног почетак у горњи леви угао. У следећем
+примеру...
 
 ```cs
-Rectangle r = new Rectangle(100, 100, 80, 50);
-g.TranslateTransform(r.X + r.Width / 2, r.Y + r.Height / 2);
-g.ScaleTransform(1.5f, 1.5f);
-g.TranslateTransform(-r.Width / 2, -r.Height / 2);
-g.DrawRectangle(Pens.Blue, 0, 0, r.Width, r.Height);
+protected override void OnPaint(PaintEventArgs e)
+{
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
+    {
+        Rectangle r = new Rectangle(100, 50, 100, 60);
+        g.DrawRectangle(p, r);
+        g.TranslateTransform(r.X + r.Width / 2, r.Y + r.Height / 2);
+        g.ScaleTransform(1.5F, 1.5F);
+        g.TranslateTransform(-r.Width / 2, -r.Height / 2);
+        g.DrawRectangle(p, 0, 0, r.Width, r.Height);
+    }
+}
 ```
 
 ...правоугаоник се увећава тачно око своје средине.
+
+![Склаирање](./images/Skaliranje4.png)
 
 Вредност параметара методе `ScaleTransform` 1.0F значи без промене, вредност
 већа од 1.0F увећава, а мања од 1.0F умањује. Негативна вредност обрће објекат,
@@ -212,58 +349,74 @@ g.DrawRectangle(Pens.Blue, 0, 0, r.Width, r.Height);
 
 ## Ресетовање трансформација
 
-Након што применимо једну или више трансформација, координатни систем се трајно
-мења унутар исте `Paint` операције. Ако не вратимо тај систем у почетно стање,
-све наредне операције цртања биће измењене. За то служи метода:
+Након што примениш једну или више трансформација, координатни систем се трајно
+мења унутар исте `Paint` операције. Ако не вратиш тај систем у почетно стање,
+све наредне операције цртања биће измењене. За враћање систена у почетно стање
+користи се метода
+[ResetTransform](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.graphics.resettransform?view=netframework-4.8).
+Ова метода користи се без параметара и нема преоптерећења:
 
 ```cs
-public void ResetTransform();
+ResetTransform();
 ```
 
 Метода `ResetTransform()` ресетује све трансформације примењене на Graphics
 објекат и враћа координатни систем у подразумевано стање (идентитет матрица:
-без померања, ротирања или скалирања).
+без померања, ротирања или скалирања). У следећем примеру...
 
 ```cs
-g.TranslateTransform(100, 50);
-g.DrawRectangle(Pens.Red, 0, 0, 80, 50);
-g.ResetTransform();
-g.DrawRectangle(Pens.Black, 0, 0, 80, 50);
-```
-
-У овом примеру, први правоугаоник ће бити померен, а други ће остати у
-координатама (0, 0).
-
-Где и када користити ResetTransform? Између различитих трансформисаних цртежа
-унутар истог OnPaint метода Пре нове трансформације, ако не желиш да се стара
-примени и на нови објекат У сложеним сценама као граница између делова који
-имају различите координатне системе
-
-Graphics објекат задржава све трансформације током свог животног века унутар
-Paint догађаја. Ако их не ресетујеш, ефекти ће се гомилати и утицати на све
-наредне елементе.
-
-Пример са више трансформација и ResetTransform
-
-```cs
-private void OnPaint(object sender, PaintEventArgs e)
+protected override void OnPaint(PaintEventArgs e)
 {
+    base.OnPaint(e);
     Graphics g = e.Graphics;
-    Rectangle rect = new Rectangle(0, 0, 100, 60);
-    g.ScaleTransform(2.0f, 2.0f);
-    g.DrawRectangle(Pens.Red, rect);
-    g.ResetTransform();
-    g.RotateTransform(30);
-    g.DrawRectangle(Pens.Blue, rect);
-    g.ResetTransform();
-    g.TranslateTransform(150, 100);
-    g.DrawRectangle(Pens.Green, rect);
-    g.ResetTransform();
-    g.DrawRectangle(Pens.Black, rect);
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
+    {
+        g.TranslateTransform(100, 50);
+        g.DrawRectangle(p, 0, 0, 80, 50);
+        g.ResetTransform();
+        g.DrawRectangle(p, 0, 0, 80, 50);
+    }
 }
 ```
 
-Сваки објекат у овом примеру се црта у засебном координатном систему.
+...први правоугаоник ће бити померен, док ће други бити у координатном почетку.
+иако су за цртање оба правоугаоника коришћење исте наредбе.
+
+![Ресетовање трансформација](./images/Reset1.png)
+
+Значи, Graphics објекат задржава све трансформације током свог животног века
+унутар Paint догађаја. Ако их не ресетујеш, ефекти ће се гомилати и утицати на
+све наредне елементе.
+
+У следећем примеру са више трансформација...
+
+```cs
+protected override void OnPaint(PaintEventArgs e)
+{
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    using (Pen p = new Pen(Color.Black, 3))
+    {
+        Rectangle r = new Rectangle(0, 0, 100, 60);
+        g.ScaleTransform(2.0f, 2.0f);
+        g.DrawRectangle(p, r);
+        g.ResetTransform();
+        g.RotateTransform(30);
+        g.DrawRectangle(p, r);
+        g.ResetTransform();
+        g.TranslateTransform(100, 100);
+        g.DrawRectangle(p, r);
+        g.ResetTransform();
+        g.DrawRectangle(p, r);
+    }
+}
+```
+
+...сваки објекат се црта у засебном координатном систему.
+
+![Ресетовање трансформација](./images/Reset1.png)
 
 Уколико креираш сопствени координатни систем за сваки графички елемент,
 обавезно користи `ResetTransform()` пре нове серије трансформација. То
