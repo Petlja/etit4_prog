@@ -8,8 +8,20 @@
 
 Метода
 [`DrawCurve()`](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.graphics.drawcurve?view=netframework-4.8)
-у свом најосновнијем облику омогућава ти да нацрташ криву линију која пролази
-кроз дефинисани низ тачака (`Point[]`)...
+има више преоптерећења...
+
+```cs
+DrawCurve(Pen, Point[])
+DrawCurve(Pen, PointF[])
+DrawCurve(Pen, Point[], float)
+DrawCurve(Pen, PointF[], float)
+DrawCurve(Pen, PointF[], int, int)
+DrawCurve(Pen, Point[], int, int, float)
+DrawCurve(Pen, PointF[], int, int, float)
+```
+
+...а у свом најосновнијем облику омогућава ти да нацрташ криву линију која
+пролази кроз дефинисани низ тачака (`Point[]`)...
 
 ```cs
 protected override void OnPaint(PaintEventArgs e)
@@ -33,12 +45,12 @@ protected override void OnPaint(PaintEventArgs e)
 ![Крива](./images/Kriva.png)
 
 ...односно, низ тачака (`PointF[]`), где се тачке дефинишу као реални бројеви
-типа `float` (нпр. `PointF t1 = new PointF(10.0F, 10.0F);`).
+типа `float` (нпр. `PointF t1 = new PointF(10.0f, 10.0f);`).
 
-Мало комплекснији навођења аргумената методе `DrawCurve()` подразумева цртање
-криве која пролази кроз дефинисани низ тачака (`PointF[]`) користећи одређену
-затегнутост (енгл. *tension*) , односно цртање криве која пролази кроз
-дефинисани низ тачака (`PointF[]`) користећи одређену "затегнутост". На пример:
+Мало комплекснији облик навођења аргумената методе `DrawCurve()` подразумева
+цртање криве која пролази кроз дефинисани низ тачака (`PointF[]`) користећи
+одређену затегнутост (енгл. *tension*) , односно цртање криве која пролази кроз
+дефинисани низ тачака (`PointF[]`) користећи одређену затегнутост. На пример:
 
 ```cs
 protected override void OnPaint(PaintEventArgs e)
@@ -54,7 +66,7 @@ protected override void OnPaint(PaintEventArgs e)
         Point p4 = new Point(260, 70);
         Point p5 = new Point(170, 190);
         Point[] p = { p1, p2, p3, p4, p5 };
-        float t = 1.0F;
+        float t = 1.0f;
         g.DrawCurve(olovka, p, t);
     }
 }
@@ -77,11 +89,11 @@ protected override void OnPaint(PaintEventArgs e)
     g.SmoothingMode = SmoothingMode.AntiAlias;
     using (Pen olovka = new Pen(Color.Black, 3))
     {
-        PointF p1 = new PointF(140.0F, 180.0F);
-        PointF p2 = new PointF(30.0F, 30.0F);
-        PointF p3 = new PointF(160.0F, 100.0F);
-        PointF p4 = new PointF(260.0F, 70.0F);
-        PointF p5 = new PointF(170.0F, 190.0F);
+        PointF p1 = new PointF(140.0f, 180.0f);
+        PointF p2 = new PointF(30.0f, 30.0f);
+        PointF p3 = new PointF(160.0f, 100.0f);
+        PointF p4 = new PointF(260.0f, 70.0f);
+        PointF p5 = new PointF(170.0f, 190.0f);
         PointF[] p = { p1, p2, p3, p4, p5 };
         g.DrawCurve(olovka, p, 1, 3);
     }
@@ -91,15 +103,23 @@ protected override void OnPaint(PaintEventArgs e)
 ![Крива](./images/Kriva3.png)
 
 Постоје још два преоптерећења методе `DrawCurve()`. Једно подразумева да као
-аргументе наводиш низ тачака (`PointF[]`), помак, број сегмената и затегнутост,
+аргументе наводиш низ тачака (`Point[]`), помак, број сегмената и затегнутост,
 а друго, низ тачака (`PointF[]`), помак, број сегмената и затегнутост.
 
 ## Цртање Безјеове криве
 
 Метода
 [`DrawBezier()`](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.graphics.drawbezier?view=netframework-4.8)
-у свом најосновнијем облику омогућава ти да нацрташ криву линију која пролази
-кроз четири тачке (`Point`)...
+има три преоптерећења...
+
+```cs
+DrawBezier(Pen, Point, Point, Point, Point)
+DrawBezier(Pen, PointF, PointF, PointF, PointF)
+DrawBezier(Pen, float, float, float, float, float, float, float, float)
+```
+
+...а у свом најосновнијем облику омогућава ти да нацрташ криву линију која
+пролази кроз четири тачке (`Point`):
 
 ```cs
 protected override void OnPaint(PaintEventArgs e)
@@ -120,8 +140,8 @@ protected override void OnPaint(PaintEventArgs e)
 
 ![Безјеова крива](./images/Bezjeova.png)
 
-...или кроз четири тачке `PointF` или кроз четири координате које се
-представљају као парови реалних бројева типа `float`.
+Уместо тачака `Point` можеш да дефинишеш четири тачке `PointF` или четири
+координате које се представљају као парови реалних бројева типа `float`.
 
 ## Цртање слободном руком
 
@@ -139,6 +159,7 @@ protected override void OnPaint(PaintEventArgs e)
 ```cs
 private List<Point> tacke = new List<Point>();
 private bool crtanje = false;
+
 public Form1()
 {
     InitializeComponent();
@@ -179,6 +200,7 @@ private void Form_MouseUp(object sender, MouseEventArgs e)
 
 protected override void OnPaint(PaintEventArgs e)
 {
+    base.OnPaint(e);
     Graphics g = e.Graphics;
     g.SmoothingMode = SmoothingMode.AntiAlias;
     using (Pen olovka = new Pen(Color.Black, 3))
