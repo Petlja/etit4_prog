@@ -11,9 +11,8 @@
 * DrawLine,
 * DrawRectangle и FillRectangle,
 * DrawEllipse и FillEllipse,
-* DrawPolygon и FillPolygon,
-* DrawString и
-* DrawImage.
+* DrawPolygon и FillPolygon и
+* DrawString.
 
 Постоји више начина за добијање објекта класе `Graphics`. Први и најпоузданији
 начин је добијање графичког контекста из објекта `PaintEventArgs` унутар метода
