@@ -5,11 +5,16 @@
 ```{toctree}
 :maxdepth: 1
 
-uvod
-dijalog_poruke
-dijalog_colorfont
-fontovi
-dijalog_filefolder
+01_uvod
+02_dijalog_poruke
+03_dijalog_colorfont
+04_fontovi
+05_dijalog_filefolder
+06_meni
+07_kontekstni
+08_saalatima
+09_viseformi
+10_komunikacija
 ```
 
 ## Изводи из планова наставе и учења

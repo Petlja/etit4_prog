@@ -9,4 +9,5 @@
 01_string_klasa
 02_metode
 03_regularni
+04_klase_regular
 ```
