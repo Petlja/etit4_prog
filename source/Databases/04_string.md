@@ -8,12 +8,14 @@
 * врста аутентификација, као и
 * додатне опције попут времена тајмаута, типа енкрипције итд.
 
+Конекциони стринг је неопходан за рад са ADO.NET објектима!
+
 ## Добијање конекционог стринга
 
 Претпоставља се да си на свом рачунару успешно инсталирао *SQL Server Express*
-и *SSMS* (како је описано у лекцији [Инсталација алата](./alati.md)), као и да
-си успешно креирао базу података *Northwind* (како је описано у лекцији
-[Креирање базе података за вежбе](./skripta.md)).
+и *SSMS* (како је описано у лекцији [Инсталација алата](./02_alati.md)), као и
+да си успешно креирао базу података *Northwind* (како је описано у лекцији
+[Креирање базе података за вежбе](./03_skripta.md)).
 
 У интегрисаном развојном окружењу *Visual Studio*, у менију *View* одабери
 **Server Explorer**. У *Server Explorer*-у десним кликом на
@@ -54,16 +56,14 @@
 
 ![Connection String](./images/conn-string.png)
 
-Конекционом стринг изгледа овако:
-
-```text
-Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True;Encrypt=False
-```
+У конекционом стрингу налазиће се следећи подаци:
 
 * `Data Source=LOCALHOST\SQLEXPRESS` дефинише име хоста са *SQL Server*-ом,
 * `Initial Catalog=Northwind` дефинише име базе података,
-* `Integrated Security=True` дефинише тип аутентификације (*Windows* аутентификација) и
-* `Encrypt=False` дефинише тип енкрипције која је додатна опција и коју можеш у овом случају да обришеш.
+* `Integrated Security=True` дефинише тип аутентификације (*Windows*
+аутентификација) и
+* `Encrypt=False` дефинише тип енкрипције која је додатна опција и коју можеш у
+овом случају да обришеш.
 
 Значи, минимални конекциони стринг до *Northwind* базе података која је
 креирана у *SQL Express Server*-у на твом рачунару треба да изгледа овако:
@@ -77,5 +77,35 @@ Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=T
 напишеш две обрнуте косе црте `\\`, на пример:
 
 ```cs
-string connectionString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True";
+string conStr = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True";
 ```
+
+У .NET Framework апликацијама, конекциони стринг се често дефинише у
+конфигурационом фајлу `App.config`...
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <connectionStrings>
+    <add name="NorthwindCS"
+             connectionString="Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True"
+             providerName="System.Data.SqlClient" />
+  </connectionStrings>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8" />
+    </startup>
+</configuration>
+```
+
+...који се касније у коду чита на следећи начин:
+
+```cs
+using System.Configuration;
+
+string conStr = ConfigurationManager.ConnectionStrings["KonekcioniString"].ConnectionString;
+```
+
+Конекциони стринг је основа за повезивање .NET апликације са базом података.
+Правилно дефинисање и чување конекционог стринга је кључно за стабилан и
+безбедан рад апликације. У наредним лекцијама научићеш како се користе ADO.NET
+класе за успостављање везе и извршавање SQL команди.
