@@ -22,6 +22,11 @@
 13_upisivanje
 14_azuriranje
 15_brisanje
+16_kontrole
+17_listview
+18_chart
+19_hijerarhija
+20_crud_primer
 ```
 
 ## Изводи из планова наставе и учења
