@@ -7,8 +7,11 @@
 
 00_uvod
 01_genericke_metode
+01_kviz.md
 02_genericke_metode_params
+02_kviz
 03_genericke_metode_constraints
+03_kviz
 04_genericki_delegati
 05_genericke_klase
 06_genericki_interfejsi

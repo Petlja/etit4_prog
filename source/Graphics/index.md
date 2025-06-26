@@ -16,6 +16,7 @@
 08_elipsa_krug
 09_luk_isecak
 10_string
+11_primer
 11_transformacije
 12_niti
 13_animacije
