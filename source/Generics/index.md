@@ -13,15 +13,23 @@
 03_genericke_metode_constraints
 03_kviz
 04_genericki_delegati
+04_kviz
 05_genericke_klase
+05_kviz
 06_genericki_interfejsi
+06_kviz
 07_kolekcije
+07_kviz
 08_lambda
+08_kviz
 09_lista
+09_kviz
 10_stek
 11_red
+11_kviz
 12_hesset
 13_recnik
+13_kviz
 ```
 
 ## Изводи из планова наставе и учења
