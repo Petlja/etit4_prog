@@ -17,13 +17,13 @@
 
 О ускладиштеним процедурама учио си у III разреду у оквиру наставног предмета
 Базе података, али је сада право време да се подсетиш како се креирају
-ускладиштене процедуре и како се параметризују упити. Једноставан пример из
-претходне лекције захтевао би да се унето корисничко име и лозинка пошаљу
-*SQL Server*-у на проверу. Дакле, треба да креираш ускладиштену процедуру која
-прима два параметра, `@username` и `@password` и враћа резултат упита.
+ускладиштене процедуре и како се параметризују упити. Пример претраге купаца по
+земљи из претходне лекције је идеалан кандидат за ускладиштену процедуру.
+Дакле, треба да креираш процедуру која прима један параметар, `@Country`, и
+враћа све купце из те земље.
 
-У SMSS у бази података `Primer` пронађи ставку *Programmability*, па у оквиру
-ње пронађи ставку *Stored Procedures*. Десним тастером миша кликни на
+У SMSS у бази података `Northwind` пронађи ставку *Programmability*, па у
+оквиру ње пронађи ставку *Stored Procedures*. Десним тастером миша кликни на
 *Stored Procedures* па одабери *Stored Procedure...*. Отвориће се шаблон за
 креирање упита који креира ускладиштене процедуре, а који изгледа овако:
 
@@ -74,13 +74,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE usp_Login
-    @username NVARCHAR(50),
-    @password NVARCHAR(50)
+CREATE PROCEDURE dbo.usp_GetCustomersByCountry
+    @Country NVARCHAR(15)
 AS
 BEGIN
     SET NOCOUNT ON;
-    SELECT * FROM users WHERE username = @username AND password = @password
+    SELECT CustomerID, CompanyName, City, Country 
+    FROM dbo.Customers 
+    WHERE Country = @Country
 END
 GO
 ```
@@ -89,43 +90,40 @@ GO
 ускладиштена процедура. Када добијеш поруку *Commands completed successfully.*
 на тастатури притисни тастер F5, па провери да ли се у секцији
 *Programmability / Stored Procedures* налази ускладиштена процедура
-`dbo.usp_Login`. Сада можеш да отвориш свој Windows Forms пројекат из претходне
-лекције и измениш кôд на следећи начин...
+`dbo.usp_GetCustomersByCountry`. Сада можеш да отвориш свој Windows Forms
+пројекат из претходне лекције и измениш кôд на следећи начин...
 
 ```cs
-private void btnLogin_Click(object sender, EventArgs e)
+private void btnSearch_Click(object sender, EventArgs e)
 {
-    string username = txtUserName.Text;
-    string password = txtPassword.Text;
-    string connString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Primer;Integrated Security=True";
+    string country = txtCountry.Text;
+    string connString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True";
     using (SqlConnection conn = new SqlConnection(connString))
     {
         conn.Open();
-        SqlCommand cmd = new SqlCommand("usp_Login", conn);
+        SqlCommand cmd = new SqlCommand("dbo.usp_GetCustomersByCountry", conn);
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.Add("@username", SqlDbType.NVarChar, 50).Value = username;
-        cmd.Parameters.Add("@password", SqlDbType.NVarChar, 50).Value = password;
+        cmd.Parameters.Add("@Country", SqlDbType.NVarChar, 15).Value = country;
         using (SqlDataReader reader = cmd.ExecuteReader())
         {
             if (reader.HasRows)
             {
-                // Pokretanje glavnog dela programa
+                // Prikaz rezultata...
             }
             else
             {
-                MessageBox.Show("Pogresno korisnicko ime ili lozinka!");
+                MessageBox.Show("Nije pronađen ni jedan kupac iz unete zemlje.");
             }
         }
     }
 }
 ```
 
-...или, у овом случају уместо метода `Add`, можеш да користиш методе
-`AddWithValue`:
+...или, наравно, можеш користити и једноставнију методу `AddWithValue`, мада си
+научио зашто је `Add` често бољи избор::
 
 ```cs
-cmd.Parameters.AddWithValue("@username", username);
-cmd.Parameters.AddWithValue("@password", password);
+cmd.Parameters.AddWithValue("@Country", country);
 ```
 
 Шта се променило у коду ове методе у односу на кôд из претходне лекције? Из
@@ -138,8 +136,8 @@ cmd.CommandType = CommandType.StoredProcedure;
 
 Значи, овим се *SQL Server*-у наговештава да уместо *SQL* упита очекује позив
 ускладиштене процедуре. Такође, уместо *SQL* упита, у `SqlCommand` наводи се
-име процедуре `usp_Login`, а параметри се додају на исти начин као код
-параметризованих упита у претходној лекцији. Обрати пажњу да уколико се
+име процедуре `usp_GetCustomersByCountry`, а параметри се додају на исти начин
+као код параметризованих упита у претходној лекцији. Обрати пажњу да уколико се
 параметри ускладиштене процедуре не поклапају по имену или редоследу са оним
 што апликација шаље, извршавање може неуспети или дати неочекиване резултате.
 
@@ -148,13 +146,15 @@ cmd.CommandType = CommandType.StoredProcedure;
 креирај нови упит, унеси...
 
 ```sql
-EXEC usp_Login @username = 'paja', @password = 'p@55w0rd'
+EXEC dbo.usp_GetCustomersByCountry @Country = 'Germany'
 ```
 
 ...па кликни на дугме у менију *Execute*. Као резултат добићеш табелу:
 
-| UserID | Username | Password |
-|--------|----------|----------|
-| 1      | paja     | p@55w0rd |
+| CustomerID | CompanyName                        | City        | Country |
+|------------|------------------------------------|-------------|---------|
+| ALFKI      | Alfreds Futterkiste                | Berlin      | Germany |
+| ...        | ...                                | ...         | ...     |
 
-што значи да је твоја ускладиштена процедура исправна.
+Ово потврђује да је твоја ускладиштена процедура исправна и спремна за
+коришћење у апликацији.

@@ -122,7 +122,8 @@ namespace KontroleZaPrikazPodataka
 
 ## Контрола DataGridView
 
-`DataGridView` је најмоћнија и најлакша контрола за приказ табеларних података.
+[`DataGridView`](https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.datagridview?view=netframework-4.8)
+је најмоћнија и најлакша контрола за приказ табеларних података.
 Њена највећа предност је што може директно да се повеже са извором података
 (као што је `List<Proizvod>`) и аутоматски генерише колоне и редове. Потребно
 је да само доделиш листу података `DataSource` својству контроле.
