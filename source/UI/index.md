@@ -18,6 +18,8 @@
 09_viseformi
 10_komunikacija
 11_mdi
+12_mdieditor
+12_kviz
 ```
 
 ## Изводи из планова наставе и учења

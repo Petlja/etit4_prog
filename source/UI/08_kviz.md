@@ -1,123 +1,129 @@
-# Квиз: дијалози и фонтови
+# Квиз: менији
 
 ## Питање 1
 
 ```{mchoice}
-:answer1: OK
-:answer2: OKCancel
-:answer3: YesNoCancel
-:answer4: YesNoMaybe
-:answer5: YesNo
-:correct: 1,2,3,5
+:answer1: MainMenu
+:answer2: ToolStrip
+:answer3: MenuStrip
+:answer4: ContextMenuStrip
+:correct: 3
 
-Које од наведених вредности припадају `MessageBoxButtons` енумерацији?
+Која контрола се користи за креирање главног менија апликације који се налази на врху форме?
 ```
 
 ## Питање 2
 
 ```{mchoice}
-:answer1: Текст поруке
-:answer2: Наслов дијалога
-:answer3: Комбинација дугмади
-:answer4: Иконица 
-:answer5: Боја позадине
-:correct: 1,2,3,4
+:answer1: Подешавањем својства AccessKey на F.
+:answer2: Уношењем текста ALT+F: Fajl у својство Text.
+:answer3: Уношењем текста &Fajl у својство Text.
+:answer4: Подешавањем својства ShortcutKeys на Keys.Alt | Keys.F.
+:correct: 3
 
-Који од следећих параметара можеш користити у `MessageBox.Show()` методи?
+Како се дефинише тастер за приступ (*access key*) за ставку менија, тако да се
+мени "Fajl" може отворити комбинацијом тастера ALT+F?
 ```
 
 ## Питање 3
 
 ```{mchoice}
-:answer1: Проверавајући вредност коју враћа MessageBox.Show() типа DialogResult
-:answer2: Користећи својство MessageBox.SelectedButton
-:answer3: Пратећи клик мишем
-:answer4: Пратећи својство MessageBox.ClickedButton
-:correct: 1
+:answer1: fajlMeni.DropDownItems.Add("-");
+:answer2: fajlMeni.DropDownItems.Add(new ToolStripSeparator());
+:answer3: fajlMeni.DropDownItems.AddSeparator();
+:answer4: Додавањем ставке и подешавањем њеног својства IsSeparator на true.
+:correct: 2
 
-Како можеш да сазнаш које дугме је корисник притиснуо у `MessageBox`-у?
+Који су исправни начини за додавање сепаратора између ставки у менију креираном
+у коду?
 ```
 
 ## Питање 4
 
 ```{mchoice}
-:answer1: Color
-:answer2: AllowFullOpen
-:answer3: Font
-:answer4: CustomColors
-:correct: 1,2,4
+:answer1: Постављањем својства ContextMenu на TextBox контроли.
+:answer2: Позивањем методе textBox1.ShowContextMenu(kontekstniMeni);
+:answer3: Постављањем својства ContextMenuStrip на TextBox контроли.
+:answer4: Додавањем TextBox контроле у Items колекцију ContextMenuStrip контроле.
+:correct: 3
 
-Које од следећих својстава припадају `ColorDialog` контроли? 
+На који начин се `ContextMenuStrip` контрола повезује са `TextBox` контролом
+да би се приказала на десни клик?
 ```
 
 ## Питање 5
 
 ```{mchoice}
-:answer1: Није потребно ништа посебно радити
-:answer2: Користи се using блок
-:answer3: Позива се Dispose() метода
-:answer4: Користи се try-catch блок
-:correct: 2,3
+:answer1: Click
+:answer2: Opening
+:answer3: VisibleChanged
+:answer4: Load
+:correct: 2
 
-Како се правилно рукује са ресурсима `FontDialog` или `ColorDialog` када се креирају у коду? 
+Који догађај `ContextMenuStrip` контроле је најидеалнији за проверу стања
+апликације (нпр. да ли на клипборду има текста) непосредно пре него што се мени
+прикаже, како би се омогућиле или онемогућиле одређене ставке?
 ```
 
 ## Питање 6
 
 ```{mchoice}
-:answer1: Дијалог ће приказати опцију за одабир боје фонта
-:answer2: Дијалог ће приказати опцију за одабир боје позадине
-:answer3: Дијалог ће приказати опцију за одабир боје форме дијалога
-:answer4: Дијалог ће приказати грешку
-:correct: 1
+:answer1: ToolStripButton
+:answer2: ToolStripSeparator
+:answer3: ToolStripPanel
+:answer4: ToolStripComboBox
+:correct: 3
 
-Шта ће се десити ако у `FontDialog` поставиш `ShowColor` на true?
+Која ставка се не може директно додати у `ToolStrip` контролу преко дизајнера?
 ```
 
 ## Питање 7
 
 ```{mchoice}
-:answer1: OpenFolderDialog
-:answer2: FindFolderDialog
-:answer3: FolderBrowserDialog
-:answer4: ChooseFolderDialog
-:correct: 3
+:answer1: Постављањем својства dugmeSnimi.ShortcutKeys = Keys.Control | Keys.S;
+:answer2: Постављањем својства форме KeyPreview на true и обрадом KeyDown догађаја форме.
+:answer3: Умотавањем ToolStrip контроле у ToolStripContainer који аутоматски мапира пречице.
+:answer4: ToolStripButton не може имати пречице са тастатуре.
+:correct: 2
 
-Који од следећих дијалога се користи за одабир фолдера?
+Како се у коду типично имплементира пречица са тастатуре (нпр. Ctrl+S) за `ToolStripButton` дугме?
 ```
 
 ## Питање 8
 
 ```{mchoice}
-:answer1: Коришћењем FileTypes својства у формату "Опис|.екстензија"
-:answer2: Коришћењем Filter својства у формату "Опис|.екстензија"
-:answer3: Коришћењем Extensions својства у формату "Опис|.екстензија"
-:answer4: Коришћењем Type својства у формату "Опис|.екстензија"
+:answer1: Оба менија ће се појавити један испод другог.
+:answer2: Приказаће се само нови, прилагођени контекстни мени.
+:answer3: Приказаће се подразумевани мени, а прилагођени ће бити игнорисан.
+:answer4: Доћи ће до грешке приликом покретања програма.
 :correct: 2
 
-Како се поставља филтер за типове фајлова у `OpenFileDialog`?
+Шта се дешава ако TextBox контроли, која има подразумевани контекстни мени
+(Cut, Copy, Paste), доделите сопствени `ContextMenuStrip`?
 ```
 
 ## Питање 9
 
 ```{mchoice}
-:answer1: Environment.GetSystemPath()
-:answer2: Environment.GetFolderPath(Environment.SpecialFolder)
-:answer3: Directory.GetSystemDirectory()
-:answer4: Folder.GetSpecialPath()
+:answer1: Написати две одвојене методе за обраду Click догађаја, једну за мени и једну за дугме.
+:answer2: Повезати Click догађај обе контроле на исту методу (event handler).
+:answer3: У методи за дугме програмски позвати Click догађај ставке менија.
+:answer4: Користити ToolStripContainer да аутоматски синхронизује акције.
 :correct: 2
 
-Која од следећих метода се користи за добијање путање до системских фолдера?
+Шта је најбоља пракса уколико и ставка у `MenuStrip` менију ("Sačuvaj") и дугме
+на `ToolStrip` траци (икона дискете) треба да изврше исту акцију?
 ```
 
 ## Питање 10
 
 ```{mchoice}
-:answer1: Дефинише подразумевану екстензију фајла
-:answer2: Увек дефинише txt екстензију фајла
-:answer3: Поставља име фајла на default.ext
-:answer4: Омогућује коришћење енумерације са познатим екстензијама 
-:correct: 1
+:answer1: Icon
+:answer2: Picture
+:answer3: ImageSource
+:answer4: Image
+:correct: 4
 
-Шта је сврха `DefaultExt` својства у `SaveFileDialog`?
+Које својство `ToolStripMenuItem` или `ToolStripButton` контроле се користи за
+додавање иконе?
 ```
