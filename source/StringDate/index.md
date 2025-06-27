@@ -14,6 +14,7 @@
 06_kontrola_polja
 07_strukt_vreme
 08_strukt_datum
+09_kviz
 ```
 
 ## Изводи из планова наставе и учења
