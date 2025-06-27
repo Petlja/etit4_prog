@@ -10,9 +10,11 @@
 03_dijalog_colorfont
 04_fontovi
 05_dijalog_filefolder
+05_kviz
 06_meni
 07_kontekstni
 08_saalatima
+08_kviz
 09_viseformi
 10_komunikacija
 11_mdi
