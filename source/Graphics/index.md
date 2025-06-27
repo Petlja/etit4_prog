@@ -10,6 +10,7 @@
 02_image_bitmap
 03_strukture
 04_jedinice_mere
+04_kviz
 05_linije
 06_krive_linije
 07_pravougaonik
@@ -18,10 +19,12 @@
 10_string
 11_primer
 11_transformacije
+11_kviz
 12_niti
 13_animacije
 14_slozene_animacije
 15_animacije_i_igre
+15_kviz
 ```
 
 ## Изводи из планова наставе и учења
