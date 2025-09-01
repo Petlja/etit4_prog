@@ -1,6 +1,6 @@
 ---
 alias: etit4_prog
-short_descripiton: Програмирање IV за информатичке профиле у електротехничким школама
+short_description: Програмирање IV за информатичке профиле у електротехничким школама
 long_description: >
         OPIS OVDE source/index.md
         <p>
