@@ -5,7 +5,7 @@
 за потребе вежби у овом поглављу креираћеш помоћу SQL скрипте која се налази на
 званичном GitHub налогу [microsoft](https://github.com/microsoft) /
 [sql-server-samples](https://github.com/microsoft/sql-server-samples). Први
-корак је да преузмеш саму скрипту са следеће везе
+корак је да преузмеш саму скрипту са следеће везе: 
 [instnwnd.sql](https://github.com/microsoft/sql-server-samples/raw/refs/heads/master/samples/databases/northwind-pubs/instnwnd.sql).
 Отвори преузети фајл `instnwnd.sql` у Notepad-у, селектуј све (`CTRL` + `A`) и
 копирај на клипборд (`CTRL` + `C`).

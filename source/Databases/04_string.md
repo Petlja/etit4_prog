@@ -20,8 +20,8 @@
 У интегрисаном развојном окружењу *Visual Studio*, у менију *View* одабери
 **Server Explorer**. У *Server Explorer*-у десним кликом на
 **Data Connections** одабери **Add Connection**. У прозору *Change Data Source*
-одабери **Microsoft SQL Server** као *Data source* и
-**.NET Framework Data Provider** као *Data provider*...
+одабери **Microsoft SQL Server** као *Data Source* и
+**.NET Framework Data Provider** као *Data Provider*...
 
 ![Change Data Source](./images/change.png)
 
