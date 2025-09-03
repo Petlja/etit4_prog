@@ -125,7 +125,7 @@ public static void Ispisi<T>(T parametar)
 ## Питање 8
 
 ```{mchoice}
-:answer1: Краћи код
+:answer1: Краћи кôд
 :answer2: Боља читљивост
 :answer3: Могућност писања општег и поново употребљивог кода
 :answer4: Рад са датотекама
