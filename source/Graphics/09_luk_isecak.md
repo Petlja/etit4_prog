@@ -1,6 +1,6 @@
 # Цртање лука и кружног исечка
 
-Класa `Graphics` у .NET Framework-у омогућава цртање лукова и кружних исечака
+Класа `Graphics` у .NET Framework-у омогућава цртање лукова и кружних исечака
 помоћу метода
 [`DrawArc()`](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.graphics.drawarc?view=netframework-4.8)
 и

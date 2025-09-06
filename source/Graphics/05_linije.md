@@ -140,9 +140,9 @@ protected override void OnPaint(PaintEventArgs e)
 }
 ```
 
-## Терминатори линијa
+## Терминатори линија
 
-Терминатори линије одређују како ће се завршеци линија, односно `Pen` објекта
+Терминатори линија одређују како ће се завршеци линија, односно `Pen` објекта
 приказати. Подешавају се вредностима дефинисаним у енумерацији
 [`LineCap`](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.drawing2d.linecap?view=netframework-4.8):
 
