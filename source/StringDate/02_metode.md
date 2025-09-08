@@ -64,7 +64,7 @@ bool ima = tekst.Contains("рам"); // true
 
 ## Replace(oldValue, newValue)
 
-Замена свих појављивања једног подстринга другим.
+Мења сва појављивања једног подстринга другим.
 
 ```cs
 string novaVerzija = tekst.Replace("ра", "РА"); // "ПрогРАмирање"
