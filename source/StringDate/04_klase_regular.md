@@ -3,7 +3,7 @@
 Именски простор
 [`RegularExpressions`](https://learn.microsoft.com/en-us/dotnet/api/system.text.regularexpressions?view=netframework-4.8.1)
 обезбеђује класе за рад са регуларним изразима. Основна класа коју ћеш најчешће
-користити је [`Regex`](https://learn.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex?view=netframework-4.8.1)
+користити је [`Regex`](https://learn.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex?view=netframework-4.8.1),
 али постоји и више других помоћних класа, енумерација и делегата који
 омогућавају напредну обраду података. Неки од њих су:
 
@@ -13,13 +13,13 @@
 * `Group` представља део поклапања дефинисан заградама у регуларном изразу,
 * `GroupCollection` представља скуп свих група у оквиру једног поклапања,
 * `Capture` представља конкретан део текста који је поклопљен,
-* `CaptureCollection` представља све појаве поклапања за један елемент и
+* `CaptureCollection` представља све појаве поклапања за један елемент, и
 * `RegexOptions` је енумерација која одређује додатне опције за рад са
 регуларним изразима.
 
 ## Провера поклапања
 
-Метода `IsMatch()` враћа `True` уколико је наведени регуларни израз проналашао
+Метода `IsMatch()` враћа `True` уколико је наведени регуларни израз пронашао
 поклапање у наведеном улазном стрингу, односно `False` уколико није. На пример:
 
 ```cs
@@ -119,9 +119,9 @@ foreach (Capture c in m.Groups[1].Captures)
 `RegexOptions`:
 
 * `IgnoreCase` игнорише разлику између великих и малих слова,
-* `Multiline` да се `^` и `$` односе на почетак и крај сваког реда,
+* `Multiline` омогућава да се `^` и `$` односе на почетак и крај сваког реда,
 * `Singleline` омогућава да `.` обухвати и знак новог реда,
-* `Compiled` компајлира израз за брже извршавање и
+* `Compiled` компајлира израз за брже извршавање, и
 * `IgnorePatternWhitespace` игнорише размаке у шаблону.
 
 На пример:

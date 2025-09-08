@@ -92,7 +92,7 @@ private void Nalepi_Click(object sender, EventArgs e)
 да `ContextMenuStrip` и његове ставке буду поља форме, а не локалне променљиве
 у `Form1_Load` методи, како би њима имао приступ и у другим методама. У том
 случају можеш у `Opening` догађају динамички омогућити/онемогућити ставке
-менија, на пример, ако на клипборду нема текста, онемогући ставку `Nalepi`:
+менија – на пример, ако на клипборду нема текста, онемогући ставку `Nalepi`:
 
 ```cs
 private void KontekstniMeni_Opening(object sender, System.ComponentModel.CancelEventArgs e)

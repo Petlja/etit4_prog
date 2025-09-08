@@ -5,7 +5,7 @@
 
 * приказ и унос датума и времена,
 * одређивање трајања између два датума (уз `TimeSpan`),
-* форматирање у различите приказе и
+* форматирање у различите приказе, и
 * добијање тренутног датума и времена.
 
 Можеш да креираш фиксни датум и време...
@@ -31,7 +31,7 @@ DateTime utc = DateTime.UtcNow;    // Vreme u UTC formatu
 * `Hour`, сати,
 * `Minute`, минути,
 * `Second`, секунде,
-* `DayOfWeek`, дан у недељи (енумерација `DayOfWeek`) и
+* `DayOfWeek`, дан у недељи (енумерација `DayOfWeek`), и
 * `DayOfYear`, дан у години (1–366).
 
 ...и њих можеш користити, на пример овако:
@@ -44,7 +44,7 @@ Console.WriteLine(d.DayOfYear);  // 365
 ```
 
 И са овом структуром дозвољене су сличне операције као и са `TimeSpan`
-структуром. Можеш сабирати и одузимање дане, сате, минуте...
+структуром. Можеш сабирати и одузимати дане, сате, минуте...
 
 ```cs
 DateTime danas = DateTime.Today;
@@ -67,7 +67,7 @@ Console.WriteLine(trajanje.Days); // 172
 * `dd` за дан (две цифре),
 * `MM` за месец (две цифре),
 * `yyyy` за годину,
-* `HH` за сат (00–23) и
+* `HH` за сат (00–23), и
 * `mm` за минуте.
 
 Подразумевани формат изгледа овако...
@@ -77,7 +77,7 @@ DateTime d = DateTime.Now;
 Console.WriteLine(d.ToString()); // npr. 22.6.2025. 14:45:00
 ```
 
-...а прилагођавањем формата можеш сам да одредиш изглед. На пример:
+...а прилагођавањем формата можеш сâм да одредиш изглед. На пример:
 
 ```cs
 DateTime d = new DateTime(2025, 6, 22, 14, 30, 0);
@@ -117,7 +117,7 @@ if (DateTime.TryParse(unos, out DateTime datum))
 }
 else
 {
-    Console.WriteLine("Format unetod datuma nije ispravan!");
+    Console.WriteLine("Format unetog datuma nije ispravan!");
 }
 ```
 
