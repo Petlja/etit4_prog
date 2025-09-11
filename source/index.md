@@ -25,8 +25,7 @@ long_description: >
             <br>Овај курс Фондација Петља објавила je под лиценцом <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.sr_LATN">Creative Commons Autorstvo 4.0 Međunarodna Licenca (CC BY 4.0)</a>.
         </p>
 
-will_learn: ["Генеричке класе", "Менији, дијалози и рад са више форми", "Графика и нити",
-"Специфичности рада са стринговима, датумом и временом", "Базе података"]
+will_learn: ["Генеричке класе", "Менији, дијалози и рад са више форми", "Графика и нити", "Специфичности рада са стринговима, датумом и временом", "Базе података"]
 needed: ["Visual Studio Community Edition"]
 useful: 
     - C Sharp language documentation:
