@@ -1,0 +1,47 @@
+name: Publish Workflow
+
+on:
+  push:
+    branches:
+      - publish
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies from requirements.txt
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run plct build
+      run: |
+        plct build
+
+    - name: Save files to docs folder
+      run: |
+        plct publish
+
+    - name: Get courseId from course.json
+      id: publish
+      run: |
+        COURSE_ID=$(python -c "import json; data = json.load(open('docs/course.json', 'r', encoding='utf-8')); print(data['toc_tree']['meta_data']['alias'])")
+        echo "::set-output name=courseId::$COURSE_ID"
+
+    - name: Install Azure CLI
+      run: |
+        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+    - name: Upload to Azure Blob Storage
+      run: |
+        az storage blob upload-batch --source docs --destination publish/${{ steps.publish.outputs.courseId }} --pattern "*" --overwrite
+      env:
+        AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
