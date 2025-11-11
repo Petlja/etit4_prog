@@ -27,12 +27,12 @@ DateTime utc = DateTime.UtcNow;    // Vreme u UTC formatu
 
 * `Year`, година,
 * `Month`, месец (1–12),
-* `Day`, дан у месецу,
+* `Day`, редни број данa у месецу,
 * `Hour`, сати,
 * `Minute`, минути,
 * `Second`, секунде,
-* `DayOfWeek`, дан у недељи (енумерација `DayOfWeek`), и
-* `DayOfYear`, дан у години (1–366).
+* `DayOfWeek`, редни број данa у недељи (енумерација `DayOfWeek`), и
+* `DayOfYear`, редни број данa у години (1–366).
 
 ...и њих можеш користити, на пример овако:
 

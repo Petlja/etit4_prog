@@ -19,7 +19,7 @@
 маска за број телефона може изгледати овако:
 
 ```cs
-maskedTextBox1.Mask = "000-00-000-0000";
+maskedTextBox.Mask = "000-00-000-0000";
 ```
 
 Овим се дозвољава унос тачно 12 цифара у датом формату, где карактер `0` у
@@ -38,8 +38,8 @@ maskedTextBox1.Mask = "000-00-000-0000";
 одређује да ли се у `Text` својству враћају и знакови попут цртица. На пример:
 
 ```cs
-maskedTextBox1.PromptChar = '_';
-maskedTextBox1.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+maskedTextBox.PromptChar = '_';
+maskedTextBox.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
 ```
 
 ## Контрола DateTimePicker
@@ -62,8 +62,8 @@ dateTimePicker1.Format = DateTimePickerFormat.Short;
 пример:
 
 ```cs
-dateTimePicker1.Format = DateTimePickerFormat.Custom;
-dateTimePicker1.CustomFormat = "dd.MM.yyyy.";
+dateTimePicker.Format = DateTimePickerFormat.Custom;
+dateTimePicker.CustomFormat = "dd.MM.yyyy.";
 ```
 
 ## Контрола MonthCalendar
@@ -72,7 +72,7 @@ dateTimePicker1.CustomFormat = "dd.MM.yyyy.";
 класичног календара. Основно подешавање подразумева избор једног датума...
 
 ```cs
-monthCalendar1.MaxSelectionCount = 1;
+monthCalendar.MaxSelectionCount = 1;
 ```
 
 ...а можеш користити и својства:

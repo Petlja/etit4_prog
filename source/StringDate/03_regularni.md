@@ -7,7 +7,7 @@
 телефона који почињу са +381.
 
 Овакве типове задатака можеш решити помоћу регуларних израза (енгл.
-*Regular Expressions - Regex*) – моћан алат који ти омогућује да дефинишеш
+*Regular Expressions - Regex*) – моћног алата који ти омогућује да дефинишеш
 сложене обрасце за претрагу, валидацију и манипулацију стрингова на веома
 ефикасан начин.
 
@@ -18,7 +18,7 @@
 * ако тражиш било коју цифру, образац је `\d`
 * ако тражиш три цифре заредом, образац је `\d\d\d` или краће `\d{3}`.
 
-Рад са регуларним изразима у C# дефинисан је у именском простору
+Рад са регуларним изразима у језику C# дефинисан је у именском простору
 [`System.Text.RegularExpressions`](https://learn.microsoft.com/en-us/dotnet/api/system.text.regularexpressions?view=netframework-4.8),
 односно главној класи која се зове
 [`Regex`](https://learn.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex?view=netframework-4.8).
