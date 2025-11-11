@@ -40,6 +40,26 @@ static void Main()
 }
 ```
 
+Да генеричке методе не постоје, за сваки тип аргумента морао би да напишешж
+посебну методу. На пример:
+
+```cs
+public static void Ispisi(int parametar)
+{
+    Console.WriteLine(parametar);
+}
+
+public static void Ispisi(double parametar)
+{
+    Console.WriteLine(parametar);
+}
+
+public static void Ispisi(string parametar)
+{
+    Console.WriteLine(parametar);
+}
+```
+
 Типски параметар `<T>` наведен у дефиницији методе није потребно наводити
 приликом позива – компајлер ће сâм одредити тип на основу прослеђеног
 аргумента:

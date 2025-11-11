@@ -14,7 +14,7 @@
 
 ## Додавање елемената
 
-Листу можеш иницијализовати са вредностима одмах приликом декларације, на
+Листу можеш иницијализовати вредностима одмах приликом декларације, на
 пример:
 
 ```cs
@@ -200,6 +200,33 @@ Maja (razred: 2)
 Ucenici drugog razreda:
 Raja
 Maja
+```
+
+Исти кôд можеш написати и `ForEach` петљама и ламбда изразима:
+
+```cs
+class Program
+{
+    static void Main()
+    {
+        List<Ucenik> ucenici = new List<Ucenik>
+        {
+            new Ucenik("Paja", 1),
+            new Ucenik("Raja", 2),
+            new Ucenik("Vlaja", 3),
+            new Ucenik("Maja", 2)
+        };
+
+        Console.WriteLine("Spisak učenika:");
+        ucenici.ForEach(u => Console.WriteLine(u));
+
+        Console.WriteLine("\nUčenici drugog razreda:");
+        ucenici
+            .Where(u => u.Razred == 2)
+            .ToList()
+            .ForEach(u => Console.WriteLine(u.Ime));
+    }
+}
 ```
 
 Класа `List<T>` омогућава рад са листама које се могу динамички проширивати или
