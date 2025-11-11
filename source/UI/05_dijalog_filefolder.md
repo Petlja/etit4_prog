@@ -7,7 +7,7 @@
 [раду са бинарним фајловима](https://petlja.org/sr-Latn-RS/kurs/14469/2/9867).
 У Windows Forms апликацијама, рад са фајловима и директоријумима често
 подразумева да кориснику понудиш дијалошки прозор за отварање или чување фајла,
-као и за избор фолдера, па тако .NET Framework има већ дефинисане дијалоге који
+као и за избор директоријума, па тако .NET Framework има већ дефинисане дијалоге који
 се лако користе и прилагођавају, где су најчешће коришћени:
 
 * [`OpenFileDialog`](https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.openfiledialog?view=netframework-4.8)
@@ -68,7 +68,7 @@ Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 ```
 
-Путање до осталих системских фолдера можеш добити преко набрајања
+Путање до осталих системских фолдера можеш добити набрајањем
 [`Environment.SpecialFolder`](https://learn.microsoft.com/en-us/dotnet/api/system.environment.specialfolder?view=netframework-4.8).
 
 ## Дијалог за отварање фајлова

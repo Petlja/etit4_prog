@@ -109,7 +109,7 @@ private void Form1_KeyDown(object sender, KeyEventArgs e)
 
 Иако `ToolStripButton` подржава ALT-пречице као део текста, нпр. `&Otvori`, оне
 се ретко користе, јер је фокус на иконама, а не на текстуалном садржају. Ако
-дугме btnOpen дефинишеш овако...
+дугме `btnOpen` дефинишеш овако...
 
 ```cs
 ToolStripButton btnOpen = new ToolStripButton("&Otvori");
