@@ -30,6 +30,8 @@ protected override void OnPaint(PaintEventArgs e)
 }
 ```
 
+![Цртање лука](./images/lukiisecak1.png)
+
 ## Цртање кружног исечка
 
 Метода `FillPie()` попуњава део елипсе између њеног лука и центра, формирајући
@@ -48,3 +50,5 @@ protected override void OnPaint(PaintEventArgs e)
     }
 }
 ```
+
+![Цртање кружног исечка](./images/lukiisecak2.png)
