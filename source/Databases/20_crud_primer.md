@@ -218,7 +218,7 @@ namespace UpravljanjeProizvodima
 }
 ```
 
-У методи `UcitajSve`, можеш да користиш смо `SqlDataReader` уместо
+У методи `UcitajSve`, можеш да користиш само `SqlDataReader` уместо
 `SqlDataAdapter` и `DataTable`. `SqlDataReader` је ефикаснији начин за читање
 података ред по ред, директно из базе, без креирања међу-објеката у меморији.
 
