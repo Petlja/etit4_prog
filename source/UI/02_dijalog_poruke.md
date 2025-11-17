@@ -97,13 +97,13 @@ else
 
 ```cs
 DialogResult rezultat = MessageBox.Show(
-    "Da li si siguran?",
-    "Potvrda",
-    MessageBoxButtons.YesNoCancel,
-    MessageBoxIcon.Warning);
+                "Da li si siguran?",
+                "Potvrda",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Warning);
 ```
 
-![Два стринга, дугмад и иконица](./images/message3.png)
+![Два стринга, дугмад и иконица](./images/message4.png)
 
 Метода `Show()` класе `MessageBox` има још много преоптерећења која су наведена
 у [званичној документацији](https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.messagebox.show?view=netframework-4.8),

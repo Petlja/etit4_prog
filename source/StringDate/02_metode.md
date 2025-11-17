@@ -38,7 +38,7 @@ string obradjeno = unos.Trim(); // "тест"
 
 ## Substring(int startIndex, int length)
 
-Издваја део стринга, почевши од дате позиције.
+Издваја део стринга дате дужине, почевши од дате позиције.
 
 ```cs
 string tekst = "Програмирање";

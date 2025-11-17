@@ -29,6 +29,8 @@ protected override void OnPaint(PaintEventArgs e)
 горњи леви угао има координате $(50, 50)$, а чија ширина је 150 и висина 100
 пиксела.
 
+![Цртање елипсе](./images/elipsaikrug1.png)
+
 Метода `DrawEllipse()` има и преоптерећење где се координате и ширина и висина
 наводе као реални бројеви...
 
@@ -76,14 +78,16 @@ protected override void OnPaint(PaintEventArgs e)
     g.SmoothingMode = SmoothingMode.AntiAlias;
     using (Brush cetka = new SolidBrush(Color.Yellow))
     {
-        g.FillEllipse(cetka, 50, 50, 150, 150);
+        g.FillEllipse(cetka, 50, 50, 150, 100);
     }
     using (Pen olovka = new Pen(Color.Black, 3))
     {
-        g.DrawEllipse(olovka, 50, 50, 150, 150);
+        g.DrawEllipse(olovka, 50, 50, 150, 100);
     }
 }
 ```
+
+![Бојење елипсе](./images/elipsaikrug2.png)
 
 Већина програмера прво попуњава облик, па тек онда црта ивицу као у овом
 примеру. Ако прво нацрташ облик, попуњавање облика може да прекрије ивицу
@@ -95,7 +99,7 @@ protected override void OnPaint(PaintEventArgs e)
 ## Цртање круга
 
 Да би нацртао круг, уместо правоугаоника потребно је да наведеш квадрат – како
-су ширина и висина квадрата једнаки, добија се савршен круг. На пример:
+су ширина и висина квадрата једнаки, добија се круг. На пример:
 
 ```cs
 protected override void OnPaint(PaintEventArgs e)
@@ -105,10 +109,12 @@ protected override void OnPaint(PaintEventArgs e)
     g.SmoothingMode = SmoothingMode.AntiAlias;
     using (Pen olovka = new Pen(Color.Black, 3))
     {
-        g.DrawEllipse(olovka, 50, 50, 150, 150);
+        g.DrawEllipse(olovka, 10, 10, 110, 110);
     }
 }
 ```
+
+![Цртање круга](./images/elipsaikrug3.png)
 
 Цртање и бојење елипси и кругова у Windows Forms апликацијама је једноставно и
 интуитивно. Комбинујући координате, величине и боје, могуће је креирати
